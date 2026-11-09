@@ -1,0 +1,526 @@
+# Config for the Data Ingestion Agent.
+# Swap `raw_data_dir` to point at the real Kaggle CSVs (same filenames) and
+# nothing else needs to change.
+
+ingestion:
+  source_type: csv
+  raw_data_dir: data/raw/olist
+
+  # table_name -> filename. table_name is what the rest of the pipeline refers
+  # to this table as (independent of the actual Kaggle filenames).
+  sources:
+    orders: olist_orders_dataset.csv
+    customers: olist_customers_dataset.csv
+    order_items: olist_order_items_dataset.csv
+    payments: olist_order_payments_dataset.csv
+    reviews: olist_order_reviews_dataset.csv
+    products: olist_products_dataset.csv
+    sellers: olist_sellers_dataset.csv
+    geolocation: olist_geolocation_dataset.csv
+    category_translation: product_category_name_translation.csv
+
+  # Minimum columns required for the agent to trust a table enough to use it.
+  # A table failing this check is dropped (run continues in PARTIAL status)
+  # rather than crashing the whole ingestion.
+  required_columns:
+    orders:
+      - order_id
+      - customer_id
+      - order_status
+      - order_purchase_timestamp
+    customers:
+      - customer_id
+      - customer_unique_id
+      - customer_state
+    order_items:
+      - order_id
+      - order_item_id
+      - product_id
+      - seller_id
+      - price
+      - freight_value
+    payments:
+      - order_id
+      - payment_type
+      - payment_installments
+      - payment_value
+    reviews:
+      - review_id
+      - order_id
+      - review_score
+    products:
+      - product_id
+      - product_category_name
+    sellers:
+      - seller_id
+      - seller_state
+    geolocation:
+      - geolocation_zip_code_prefix
+      - geolocation_lat
+      - geolocation_lng
+    category_translation:
+      - product_category_name
+      - product_category_name_english
+
+  # Columns to parse as datetimes, per table.
+  date_columns:
+    orders:
+      - order_purchase_timestamp
+      - order_approved_at
+      - order_delivered_carrier_date
+      - order_delivered_customer_date
+      - order_estimated_delivery_date
+    order_items:
+      - shipping_limit_date
+    reviews:
+      - review_creation_date
+      - review_answer_timestamp
+
+  # Tables that are optional — ingestion continues at PARTIAL status (not
+  # FAILED) if these are missing, since the core order/item/payment fact
+  # table doesn't strictly need them.
+  optional_tables:
+    - reviews
+    - geolocation
+    - category_translation
+
+  # Which table is the join anchor, and the grain of the unified output.
+  join:
+    anchor: order_items # unified table is at order_item grain
+    steps:
+      - left: order_items
+        right: orders
+        on: order_id
+        how: inner
+      - left: order_items
+        right: products
+        on: product_id
+        how: left
+      - left: order_items
+        right: sellers
+        on: seller_id
+        how: left
+      - left: order_items
+        right: customers
+        on: customer_id
+        how: left
+        # customer_id lives on `orders`, not `order_items` — resolved via
+        # a bridge join in code (see data_ingestion_agent.py); listed here
+        # for documentation of intent.
+      - left: order_items
+        right: category_translation
+        on: product_category_name
+        how: left
+      - left: order_items
+        right: payments_agg
+        on: order_id
+        how: left
+        # payments_agg = payments grouped to order grain first (an order can
+        # have multiple payment rows), see code.
+
+# Config for the Data Cleaning Agent.
+# Operates on the Ingestion Agent's `primary_table` (unified). Raw tables are
+# passed through unchanged — cleaning targets the analytical fact table that
+# EDA/ML/Forecasting/Anomaly agents will actually consume.
+cleaning:
+  # Columns that define a "real" duplicate row at the unified (order-item)
+  # grain. Exact full-row dupes are already dropped at ingestion; this catches
+  # dupes that differ only in a non-key column.
+  dedup_subset:
+    - order_id
+    - order_item_id
+    - product_id
+
+  # Explicit dtype conversions. IDs stay as string (never numeric — leading
+  # zeros / accidental math are a classic ID-column bug). Low-cardinality
+  # text becomes 'category' to save memory for the ML/EDA agents.
+  dtype_overrides:
+    order_id: string
+    order_item_id: string
+    product_id: string
+    seller_id: string
+    customer_id: string
+    customer_unique_id: string
+    order_status: category
+    payment_type_primary: category
+    product_category_name: category
+    product_category_name_english: category
+    customer_state: category
+    seller_state: category
+
+  # Free-text / categorical columns to trim + standardize case.
+  string_standardize:
+    order_status: lower
+    product_category_name: lower
+    product_category_name_english: lower
+    customer_state: upper
+    seller_state: upper
+    customer_city: title
+    seller_city: title
+
+  # Per-column missing-value strategy. Anything not listed here falls back to
+  # median (numeric) / mode (categorical) / flag_only (datetime).
+  missing_value_strategy:
+    # Not-yet-delivered orders legitimately have no delivery date / delivery_days
+    # — that's a business fact, not a data error, so don't impute it.
+    order_delivered_customer_date: skip
+    order_delivered_carrier_date: skip
+    order_approved_at: skip
+    delivery_days: skip
+    review_score_avg: flag_only          # no review submitted != a review score of 0
+    product_category_name: constant:unknown
+    product_category_name_english: constant:unknown
+    payment_type_primary: constant:unknown
+
+  # Outlier handling — conservative by design (see cleaning_ops.handle_outliers
+  # docstring). 'cap' only where extreme values are almost certainly data-entry
+  # errors; everything else is flagged, not altered, for the Anomaly Detection
+  # Agent to reason about later.
+  outliers:
+    price:
+      action: cap
+      iqr_multiplier: 3.0
+    freight_value:
+      action: cap
+      iqr_multiplier: 3.0
+    product_weight_g:
+      action: flag
+      iqr_multiplier: 3.0
+    delivery_days:
+      action: flag
+      iqr_multiplier: 3.0
+
+# Config for the EDA (Exploratory Data Analysis) Agent.
+# Operates on the Cleaning Agent's `primary_table` (unified_cleaned). Produces
+# summary tables (not just charts) so downstream agents — ML, Recommendation,
+# Dashboard — can consume EDA findings programmatically, not just as images.
+eda:
+  # Explicit numeric columns to summarize/correlate. If empty, auto-detects
+  # every numeric dtype column at run time.
+  numeric_columns:
+    - price
+    - freight_value
+    - item_total_value
+    - payment_value_total
+    - payment_installments_max
+    - review_score_avg
+    - delivery_days
+    - product_weight_g
+
+  # Categorical columns to compute value-count distributions for, and how many
+  # top categories to keep per column (long tail gets bucketed as 'other').
+  categorical_columns:
+    - order_status
+    - product_category_name_english
+    - customer_state
+    - seller_state
+    - payment_type_primary
+  top_n_categories: 10
+
+  # Time-series trend: which date column to bucket by, which value column to
+  # sum/average per bucket, and the bucket frequency (pandas offset alias).
+  time_series:
+    date_column: order_purchase_timestamp
+    value_column: item_total_value
+    freq: W # weekly buckets
+
+  correlation_method: pearson
+
+  # Chart generation. Set to false to skip PNG output and only produce the
+  # summary tables (e.g. for headless CI runs).
+  generate_charts: true
+  max_histogram_columns: 6 # cap chart count so this stays fast
+
+# Config for the ML Agent.
+# Operates on the EDA Agent's `primary_table` (unified_cleaned, passed through
+# unchanged by EDA). Business task: predict delivery time (in days) at the
+# order-item level — a genuinely useful prediction (flag orders likely to be
+# slow before they ship) and a clean regression problem on this dataset.
+ml:
+  target_column: delivery_days
+  # auto | regression | classification | clustering
+  # 'auto' inspects the target's dtype/cardinality if target_column is left
+  # blank; here we know it's regression, but auto-detection still runs as a
+  # sanity check and downgrades to PARTIAL status if it disagrees.
+  problem_type: regression
+
+  # Columns excluded from features. Three reasons a column ends up here:
+  #   (a) identifiers — no predictive meaning, just high-cardinality noise
+  #   (b) leakage — anything only known AFTER the thing we're predicting
+  #       happens (e.g. the actual delivered date directly determines
+  #       delivery_days — training on it would be cheating)
+  #   (c) derived-from-target — delivery_days_is_outlier is computed FROM
+  #       delivery_days by the Cleaning Agent, so it's leakage by construction
+  exclude_columns:
+    - order_id
+    - order_item_id
+    - product_id
+    - seller_id
+    - customer_id
+    - customer_unique_id
+    - shipping_limit_date
+    - order_purchase_timestamp
+    - order_approved_at
+    - order_delivered_carrier_date
+    - order_delivered_customer_date
+    - order_status
+    - delivery_days_is_outlier
+    - product_category_name # keep the English translation instead, not both
+
+  test_size: 0.2
+  random_state: 42
+
+  # Candidate models tried per problem type; the agent trains all of them on
+  # the same train/test split and keeps whichever wins on the primary metric
+  # (lowest RMSE for regression, highest weighted F1 for classification).
+  candidate_models:
+    regression: [linear_regression, random_forest, xgboost]
+    classification: [logistic_regression, random_forest, xgboost]
+
+  # Used only when problem_type is 'auto': a numeric target with more unique
+  # values than this is treated as regression; at or below, classification.
+  classification_max_cardinality: 20
+
+# Config for the Forecasting Agent.
+# Operates on the ML Agent's `primary_table` (unified_cleaned, passed through
+# unchanged). Business task: forecast future weekly revenue — same series the
+# EDA Agent already characterized (src/utils/eda_ops.py: compute_time_series_trend),
+# now projected forward.
+#
+# Per the original project spec this agent evaluates three model families —
+# Prophet, XGBoost, and LSTM — head-to-head on held-out recent periods, then
+# retrains the winner on the full series to produce the actual future forecast.
+forecasting:
+  date_column: order_purchase_timestamp
+  value_column: item_total_value
+  freq: W # weekly buckets, matching the EDA Agent's time_series_trend
+
+  # How many of the most recent periods to hold out for model comparison
+  # (chronological split — never randomly shuffled, that would leak the
+  # future into training for a time series).
+  test_periods: 8
+
+  # How many future periods beyond the last known date to forecast with the
+  # winning model, once it's retrained on the full series.
+  horizon: 8
+
+  models: [prophet, xgboost, lstm]
+
+  xgboost:
+    n_lags: 4 # how many previous periods become features for predicting the next one
+    n_estimators: 200
+    random_state: 42
+
+  lstm:
+    lookback: 4 # sequence length fed into the LSTM per prediction
+    hidden_size: 16
+    epochs: 150
+    learning_rate: 0.01
+    random_state: 42
+
+  generate_chart: true
+
+# Config for the Anomaly Detection Agent.
+# Operates on the EDA Agent's `primary_table` (unified_cleaned). Per the
+# original project spec, this covers two distinct kinds of "unusual":
+#   1. Row-level anomalies (fraud-like) — an individual order/item whose
+#      combination of price, freight, delivery time, etc. looks nothing like
+#      the rest of the data. Detected by an ENSEMBLE of four algorithms named
+#      in the spec (Isolation Forest, Local Outlier Factor, One-Class SVM,
+#      Autoencoder reconstruction error) — a row is only flagged as a
+#      consensus anomaly if enough of the four independently agree.
+#   2. Time-series anomalies (sudden revenue drops/spikes, inventory-spike
+#      style events) — detected on the same weekly revenue series the EDA
+#      and Forecasting Agents already use, via rolling z-score.
+anomaly_detection:
+  numeric_columns:
+    - price
+    - freight_value
+    - item_total_value
+    - payment_value_total
+    - payment_installments_max
+    - delivery_days
+    - review_score_avg
+    - product_weight_g
+  categorical_columns:
+    - payment_type_primary
+    - customer_state
+    - seller_state
+    - product_category_name_english
+
+  # Expected proportion of true anomalies — drives IsolationForest's
+  # `contamination`, LOF's `contamination`, OneClassSVM's `nu`, and the
+  # autoencoder's reconstruction-error percentile threshold, so all four
+  # methods are tuned to roughly the same strictness.
+  contamination: 0.03
+
+  # A row needs at least this many of the 4 methods to flag it before it
+  # counts as a consensus anomaly — conservative by design (see Cleaning
+  # Agent's outlier philosophy: this agent's job is to surface candidates for
+  # a human/Recommendation Agent to review, not to unilaterally act on them).
+  min_votes_for_consensus: 2
+
+  isolation_forest:
+    n_estimators: 200
+    random_state: 42
+
+  lof:
+    n_neighbors: 20
+
+  one_class_svm:
+    kernel: rbf
+    gamma: scale
+
+  autoencoder:
+    hidden_size: 16
+    bottleneck_size: 4
+    epochs: 100
+    learning_rate: 0.01
+    random_state: 42
+
+  # Time-series anomaly detection on the weekly revenue trend.
+  time_series:
+    date_column: order_purchase_timestamp
+    value_column: item_total_value
+    freq: W
+    rolling_window: 6 # periods used to compute the local mean/std baseline
+    z_threshold: 2.0 # periods more than this many std devs from the rolling mean are flagged
+
+  generate_charts: true
+
+# Config for the Explainability Agent.
+# Converges the two branches from the architecture diagram: reads the ML
+# Agent's manifest (primary — for the trained model) and the Anomaly
+# Detection Agent's manifest (secondary — for row-level anomaly flags).
+#
+# Per the original project spec this agent answers "why did the model
+# predict this?" using SHAP and LIME. Two genuinely different explanation
+# problems are handled with two different techniques, deliberately:
+#   - ML predictions are a supervised model's output — SHAP/LIME are the
+#     standard, well-founded tools for this.
+#   - Anomaly flags come from an unsupervised 4-method ENSEMBLE VOTE, which
+#     has no single differentiable output for SHAP/LIME to attribute against.
+#     Those are explained instead by ranking each flagged row's features by
+#     how far they deviate (z-score) from the population — simpler, but
+#     actually well-defined for this case, unlike forcing SHAP onto a vote.
+explainability:
+  # How many rows to compute per-row SHAP/LIME explanations for (kept small —
+  # these are for illustrating "why this specific prediction", not a bulk
+  # export). Selected as the highest-predicted, lowest-predicted, and a
+  # random sample, so the illustrative examples aren't all similar cases.
+  n_example_rows: 9
+
+  # Background/sample size for the SHAP explainer and for computing global
+  # feature importance (mean |SHAP value| per feature).
+  shap_sample_size: 200
+
+  # Rows to explain with LIME (subset of the SHAP example rows — LIME is
+  # much slower per row since it fits a local surrogate model each time).
+  n_lime_rows: 5
+
+  top_n_reasons: 5 # how many top contributing features to report per explanation
+  random_state: 42
+
+  # Anomaly-explanation settings (only used if an Anomaly Detection manifest
+  # is provided to the agent).
+  anomaly_top_n_reasons: 5
+
+  generate_charts: true
+
+# Config for the Insight & Recommendation Agent.
+# The final agent in the "analytics" side of the pipeline — reads the
+# Explainability Agent's manifest as primary upstream (unified_cleaned +
+# SHAP/anomaly context), plus optional secondary manifests (EDA, ML,
+# Forecasting, Anomaly Detection) for a fuller picture.
+#
+# Per the original project spec: "Instead of only predicting, it recommends
+# actions." Two of the spec's example insights don't apply to this dataset
+# and are deliberately NOT fabricated: "customer churn" needs a churn label
+# this dataset doesn't have, and "inventory will run out in N days" needs
+# stock-level data this dataset doesn't have either. Faking either would be
+# worse than not producing it.
+#
+# Recommendations are RULE-BASED (the spec's explicitly-named first option,
+# not a compromise) — every insight type maps to a fixed recommendation
+# template. No live LLM call is made from here: this sandboxed build
+# environment has no API key to call one with on your behalf. The insight
+# objects this agent produces are structured (metric, direction, magnitude,
+# comparison) specifically so they could be handed to an LLM prompt for more
+# fluent phrasing later without changing anything upstream — but the
+# templated sentences already match the spec's example phrasing style.
+insight_recommendation:
+  date_column: order_purchase_timestamp
+  value_column: item_total_value
+  freq: W
+
+  # Columns to break revenue down by and look for the biggest swings in —
+  # the "Electronics sales dropped 18% in the South region" style insight.
+  segment_columns:
+    - product_category_name_english
+    - customer_state
+
+  # How many of the most recent periods count as 'recent', and how many
+  # periods immediately before that count as 'prior' — the two windows
+  # compared for every segment-level and overall revenue insight.
+  recent_periods: 4
+  prior_periods: 4
+
+  # A segment's revenue swing has to clear this % change to be worth
+  # surfacing as an insight — otherwise routine week-to-week noise would
+  # flood the output with low-value 'insights'.
+  significant_pct_change_threshold: 10.0
+
+  top_n_segments: 3 # per segment column, top N drops and top N increases
+  top_n_shap_drivers: 5
+
+  generate_chart: true
+
+# Config for the Dashboard Agent (called "Visualization Agent" in the
+# architecture diagram, "Dashboard Agent" in the original spec doc — same
+# role either way: "creates interactive charts, dashboards and KPIs").
+#
+# Reads the Insight & Recommendation Agent's manifest as primary upstream
+# (unified data + insights + recommendations), and optionally every other
+# agent's manifest by name for KPIs/charts/tables specific to that stage.
+# Unlike every prior agent, this one's real output is a runnable Streamlit
+# app, not a transformed dataset — so it writes a data bundle (JSON, for the
+# app to load) plus the app's source code, and passes the dataset through
+# unchanged like every other agent for manifest-chain consistency.
+dashboard:
+  kpi_date_column: order_purchase_timestamp
+  kpi_value_column: item_total_value
+
+  # Where the generated Streamlit app's source file is copied for convenient
+  # launching (`streamlit run <this path>`), IN ADDITION to the manifest-
+  # tracked copy under this agent's own output directory.
+  app_root_copy_path: dashboard_app.py
+
+  generate_chart: true
+
+# Config for the Report Generation Agent.
+# Same input contract as the Dashboard Agent (Insight & Recommendation's
+# manifest as primary, every other agent's manifest optionally by name) —
+# both agents share the data-gathering logic in src/utils/bi_bundle.py, so
+# the report and the dashboard can never silently show different numbers
+# for what's supposed to be the same pipeline run.
+#
+# Per the original spec: "Export to PDF or DOCX." The architecture diagram
+# additionally names PowerPoint and Excel. This implementation covers three
+# of those four — DOCX, PDF, and XLSX — using the spec's own named libraries
+# (python-docx, ReportLab) plus openpyxl for the tabular Excel export.
+# PowerPoint is not built: a slide deck needs a genuinely different content
+# model (a handful of high-density slides, not a flowing multi-page
+# narrative) rather than a straightforward third renderer over the same
+# ReportSection list DOCX/PDF share, and is left as a reasonable next step
+# rather than forced into this pass.
+report_generation:
+  report_title: "Autonomous BI Platform — Business Performance Report"
+  kpi_date_column: order_purchase_timestamp
+  kpi_value_column: item_total_value
+
+  formats: [docx, pdf, xlsx]
+
+  max_insights: 15
+  max_recommendations: 10
+  max_table_rows: 20 # per table, in the DOCX/PDF narrative report (XLSX exports full tables)
+  max_charts: 6 # charts embedded in the DOCX/PDF report

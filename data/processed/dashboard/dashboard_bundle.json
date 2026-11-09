@@ -1,0 +1,2041 @@
+{
+  "generated_at": "2026-09-19T04:56:34.989824+00:00",
+  "n_rows": 2027,
+  "kpis": {
+    "total_revenue": 983676.74,
+    "avg_order_item_value": 485.2869955599408,
+    "total_orders": 1000,
+    "total_order_items": 2027,
+    "avg_delivery_days": 10.283625730994151,
+    "avg_review_score": 2.935726693688477,
+    "unique_customers": 371,
+    "unique_products": 150,
+    "unique_sellers": 60,
+    "date_range_start": "2017-01-01",
+    "date_range_end": "2018-07-31"
+  },
+  "source_manifests": {
+    "insight_recommendation": "data\\processed\\insight_recommendation",
+    "eda": "data\\processed\\eda",
+    "ml": "data\\processed\\ml",
+    "forecasting": "data\\processed\\forecasting",
+    "anomaly_detection": "data\\processed\\anomaly_detection",
+    "explainability": "data\\processed\\explainability"
+  },
+  "chart_paths": {
+    "insight_recommendation": [
+      "data\\processed\\insight_recommendation\\charts\\segment_change_product_category.png",
+      "data\\processed\\insight_recommendation\\charts\\segment_change_region.png"
+    ],
+    "eda": [
+      "data\\processed\\eda\\charts\\hist_price.png",
+      "data\\processed\\eda\\charts\\hist_freight_value.png",
+      "data\\processed\\eda\\charts\\hist_item_total_value.png",
+      "data\\processed\\eda\\charts\\hist_payment_value_total.png",
+      "data\\processed\\eda\\charts\\hist_payment_installments_max.png",
+      "data\\processed\\eda\\charts\\hist_review_score_avg.png",
+      "data\\processed\\eda\\charts\\correlation_heatmap.png",
+      "data\\processed\\eda\\charts\\categories_order_status.png",
+      "data\\processed\\eda\\charts\\categories_product_category_name_english.png",
+      "data\\processed\\eda\\charts\\categories_customer_state.png",
+      "data\\processed\\eda\\charts\\categories_seller_state.png",
+      "data\\processed\\eda\\charts\\categories_payment_type_primary.png",
+      "data\\processed\\eda\\charts\\time_series_trend.png"
+    ],
+    "ml": [],
+    "forecasting": [
+      "data\\processed\\forecasting\\charts\\forecast.png"
+    ],
+    "anomaly_detection": [
+      "data\\processed\\anomaly_detection\\charts\\row_anomaly_scatter.png",
+      "data\\processed\\anomaly_detection\\charts\\time_series_anomalies.png"
+    ],
+    "explainability": [
+      "data\\processed\\explainability\\charts\\shap_summary.png"
+    ]
+  },
+  "executive_summary": "## Business Performance Summary\n\n### Key findings\n- SC region revenue increased by 519.6% in the most recent period compared to the prior period.\n- unknown product category revenue increased by 212.4% in the most recent period compared to the prior period.\n- Revenue is forecasted (via lstm) to rise by approximately 169.6% on average over the next 8 periods.\n- RS region revenue increased by 86.9% in the most recent period compared to the prior period.\n- SP region revenue increased by 73.9% in the most recent period compared to the prior period.\n\n### Recommended actions\n- **[HIGH]** Increase advertising spend and consider a short-term discount campaign to offset the revenue decline.\n- **[HIGH]** Launch a targeted promotion or discount campaign for product category:electronics to recover the 71.0% revenue decline.\n- **[HIGH]** Launch a targeted promotion or discount campaign for product category:sports_leisure to recover the 25.7% revenue decline.\n- **[HIGH]** Increase inventory and marketing spend for product category:unknown to capitalize on the 212.4% demand increase.\n- **[HIGH]** Increase inventory and marketing spend for product category:toys to capitalize on the 72.9% demand increase.\n",
+  "insights": [
+    {
+      "type": "revenue_trend_down",
+      "text": "Revenue decreased by 65.2% in the latest period (2018-07-30) versus the previous period.",
+      "metric": "total_revenue",
+      "value": 4411.96,
+      "comparison_value": 12660.92,
+      "pct_change": -65.15,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 0,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "electronics product category revenue dropped by 71.0% in the most recent period compared to the prior period.",
+      "metric": "product category:electronics",
+      "value": 924.06,
+      "comparison_value": 3187.21,
+      "pct_change": -71.00724458068342,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 1,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "sports_leisure product category revenue dropped by 25.7% in the most recent period compared to the prior period.",
+      "metric": "product category:sports_leisure",
+      "value": 6215.03,
+      "comparison_value": 8364.91,
+      "pct_change": -25.701173114833274,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 2,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "health_beauty product category revenue dropped by 18.5% in the most recent period compared to the prior period.",
+      "metric": "product category:health_beauty",
+      "value": 5190.28,
+      "comparison_value": 6367.84,
+      "pct_change": -18.492298801477432,
+      "direction": "decrease",
+      "severity": "medium",
+      "insight_id": 3,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "unknown product category revenue increased by 212.4% in the most recent period compared to the prior period.",
+      "metric": "product category:unknown",
+      "value": 3724.31,
+      "comparison_value": 1192.34,
+      "pct_change": 212.35302011171316,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 4,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "toys product category revenue increased by 72.9% in the most recent period compared to the prior period.",
+      "metric": "product category:toys",
+      "value": 5997.79,
+      "comparison_value": 3468.34,
+      "pct_change": 72.92970124036282,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 5,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "watches_gifts product category revenue increased by 41.4% in the most recent period compared to the prior period.",
+      "metric": "product category:watches_gifts",
+      "value": 7962.9800000000005,
+      "comparison_value": 5631.67,
+      "pct_change": 41.396424151273074,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 6,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "RJ region revenue dropped by 53.2% in the most recent period compared to the prior period.",
+      "metric": "region:RJ",
+      "value": 2187.85,
+      "comparison_value": 4675.08,
+      "pct_change": -53.2018703423257,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 7,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "BA region revenue dropped by 43.0% in the most recent period compared to the prior period.",
+      "metric": "region:BA",
+      "value": 4953.23,
+      "comparison_value": 8689.539999999999,
+      "pct_change": -42.997788145287316,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 8,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_decrease",
+      "text": "PE region revenue dropped by 37.9% in the most recent period compared to the prior period.",
+      "metric": "region:PE",
+      "value": 4206.3,
+      "comparison_value": 6778.58,
+      "pct_change": -37.947180677959096,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 9,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "SC region revenue increased by 519.6% in the most recent period compared to the prior period.",
+      "metric": "region:SC",
+      "value": 5539.18,
+      "comparison_value": 894.03,
+      "pct_change": 519.5742872163128,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 10,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "RS region revenue increased by 86.9% in the most recent period compared to the prior period.",
+      "metric": "region:RS",
+      "value": 4694.31,
+      "comparison_value": 2511.4700000000003,
+      "pct_change": 86.91483473822103,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 11,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "segment_increase",
+      "text": "SP region revenue increased by 73.9% in the most recent period compared to the prior period.",
+      "metric": "region:SP",
+      "value": 4800.47,
+      "comparison_value": 2760.02,
+      "pct_change": 73.92881211005718,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 12,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "forecast_up",
+      "text": "Revenue is forecasted (via lstm) to rise by approximately 169.6% on average over the next 8 periods.",
+      "metric": "forecasted_revenue",
+      "value": 11894.148642151951,
+      "comparison_value": 4411.96,
+      "pct_change": 169.58876875928047,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 13,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_spike",
+      "text": "item_total_value unexpectedly spiked in the period starting 2017-02-20 00:00:00 (3.5 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 18676.35,
+      "comparison_value": 10314.308333333332,
+      "pct_change": null,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 14,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_drop",
+      "text": "item_total_value unexpectedly dropped in the period starting 2017-06-05 00:00:00 (-2.3 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 4154.53,
+      "comparison_value": 11388.593333333332,
+      "pct_change": null,
+      "direction": "decrease",
+      "severity": "medium",
+      "insight_id": 15,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_spike",
+      "text": "item_total_value unexpectedly spiked in the period starting 2017-06-19 00:00:00 (2.5 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 21659.73,
+      "comparison_value": 10305.13,
+      "pct_change": null,
+      "direction": "increase",
+      "severity": "medium",
+      "insight_id": 16,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_drop",
+      "text": "item_total_value unexpectedly dropped in the period starting 2017-10-02 00:00:00 (-4.0 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 6767.63,
+      "comparison_value": 12112.698333333334,
+      "pct_change": null,
+      "direction": "decrease",
+      "severity": "high",
+      "insight_id": 17,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_drop",
+      "text": "item_total_value unexpectedly dropped in the period starting 2017-10-23 00:00:00 (-2.1 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 6354.58,
+      "comparison_value": 11952.111666666666,
+      "pct_change": null,
+      "direction": "decrease",
+      "severity": "medium",
+      "insight_id": 18,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_spike",
+      "text": "item_total_value unexpectedly spiked in the period starting 2018-02-19 00:00:00 (5.1 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 18840.12,
+      "comparison_value": 9307.275,
+      "pct_change": null,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 19,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_drop",
+      "text": "item_total_value unexpectedly dropped in the period starting 2018-04-30 00:00:00 (-2.1 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 6352.32,
+      "comparison_value": 9704.401666666667,
+      "pct_change": null,
+      "direction": "decrease",
+      "severity": "medium",
+      "insight_id": 20,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_spike",
+      "text": "item_total_value unexpectedly spiked in the period starting 2018-05-28 00:00:00 (3.7 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 19237.29,
+      "comparison_value": 10416.245,
+      "pct_change": null,
+      "direction": "increase",
+      "severity": "high",
+      "insight_id": 21,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "time_series_drop",
+      "text": "item_total_value unexpectedly dropped in the period starting 2018-07-30 00:00:00 (-2.7 standard deviations from the recent trend).",
+      "metric": "item_total_value",
+      "value": 4411.96,
+      "comparison_value": 12426.503333333334,
+      "pct_change": null,
+      "direction": "decrease",
+      "severity": "medium",
+      "insight_id": 22,
+      "top_contributing_feature": null,
+      "top_features": null
+    },
+    {
+      "type": "row_anomalies",
+      "text": "58 orders (2.9%) were flagged as unusual by multiple detection methods, most commonly due to an outlying 'payment_value_total' value.",
+      "metric": "consensus_anomalies",
+      "value": 58.0,
+      "comparison_value": null,
+      "pct_change": null,
+      "direction": null,
+      "severity": "medium",
+      "insight_id": 23,
+      "top_contributing_feature": "payment_value_total",
+      "top_features": null
+    },
+    {
+      "type": "ml_drivers",
+      "text": "'delivery_days' is most strongly influenced by: payment_value_total, payment_installments_max, customer_zip_code_prefix, freight_value, price.",
+      "metric": "delivery_days",
+      "value": null,
+      "comparison_value": null,
+      "pct_change": null,
+      "direction": null,
+      "severity": "medium",
+      "insight_id": 24,
+      "top_contributing_feature": null,
+      "top_features": [
+        "payment_value_total",
+        "payment_installments_max",
+        "customer_zip_code_prefix",
+        "freight_value",
+        "price"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "related_insight_type": "revenue_trend_down",
+      "action_text": "Increase advertising spend and consider a short-term discount campaign to offset the revenue decline.",
+      "priority": "high",
+      "rationale": "Revenue decreased by 65.2% in the latest period (2018-07-30) versus the previous period.",
+      "recommendation_id": 0,
+      "related_insight_id": 0
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for product category:electronics to recover the 71.0% revenue decline.",
+      "priority": "high",
+      "rationale": "electronics product category revenue dropped by 71.0% in the most recent period compared to the prior period.",
+      "recommendation_id": 1,
+      "related_insight_id": 1
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for product category:sports_leisure to recover the 25.7% revenue decline.",
+      "priority": "high",
+      "rationale": "sports_leisure product category revenue dropped by 25.7% in the most recent period compared to the prior period.",
+      "recommendation_id": 2,
+      "related_insight_id": 2
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for product category:health_beauty to recover the 18.5% revenue decline.",
+      "priority": "medium",
+      "rationale": "health_beauty product category revenue dropped by 18.5% in the most recent period compared to the prior period.",
+      "recommendation_id": 3,
+      "related_insight_id": 3
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for product category:unknown to capitalize on the 212.4% demand increase.",
+      "priority": "high",
+      "rationale": "unknown product category revenue increased by 212.4% in the most recent period compared to the prior period.",
+      "recommendation_id": 4,
+      "related_insight_id": 4
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for product category:toys to capitalize on the 72.9% demand increase.",
+      "priority": "high",
+      "rationale": "toys product category revenue increased by 72.9% in the most recent period compared to the prior period.",
+      "recommendation_id": 5,
+      "related_insight_id": 5
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for product category:watches_gifts to capitalize on the 41.4% demand increase.",
+      "priority": "high",
+      "rationale": "watches_gifts product category revenue increased by 41.4% in the most recent period compared to the prior period.",
+      "recommendation_id": 6,
+      "related_insight_id": 6
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for region:RJ to recover the 53.2% revenue decline.",
+      "priority": "high",
+      "rationale": "RJ region revenue dropped by 53.2% in the most recent period compared to the prior period.",
+      "recommendation_id": 7,
+      "related_insight_id": 7
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for region:BA to recover the 43.0% revenue decline.",
+      "priority": "high",
+      "rationale": "BA region revenue dropped by 43.0% in the most recent period compared to the prior period.",
+      "recommendation_id": 8,
+      "related_insight_id": 8
+    },
+    {
+      "related_insight_type": "segment_decrease",
+      "action_text": "Launch a targeted promotion or discount campaign for region:PE to recover the 37.9% revenue decline.",
+      "priority": "high",
+      "rationale": "PE region revenue dropped by 37.9% in the most recent period compared to the prior period.",
+      "recommendation_id": 9,
+      "related_insight_id": 9
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for region:SC to capitalize on the 519.6% demand increase.",
+      "priority": "high",
+      "rationale": "SC region revenue increased by 519.6% in the most recent period compared to the prior period.",
+      "recommendation_id": 10,
+      "related_insight_id": 10
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for region:RS to capitalize on the 86.9% demand increase.",
+      "priority": "high",
+      "rationale": "RS region revenue increased by 86.9% in the most recent period compared to the prior period.",
+      "recommendation_id": 11,
+      "related_insight_id": 11
+    },
+    {
+      "related_insight_type": "segment_increase",
+      "action_text": "Increase inventory and marketing spend for region:SP to capitalize on the 73.9% demand increase.",
+      "priority": "high",
+      "rationale": "SP region revenue increased by 73.9% in the most recent period compared to the prior period.",
+      "recommendation_id": 12,
+      "related_insight_id": 12
+    },
+    {
+      "related_insight_type": "forecast_up",
+      "action_text": "Stock fast-moving products ahead of continued demand growth.",
+      "priority": "high",
+      "rationale": "Revenue is forecasted (via lstm) to rise by approximately 169.6% on average over the next 8 periods.",
+      "recommendation_id": 13,
+      "related_insight_id": 13
+    },
+    {
+      "related_insight_type": "time_series_spike",
+      "action_text": "Confirm the spike reflects a genuine demand event (e.g. a promotion) rather than a data or pricing error before adjusting inventory plans.",
+      "priority": "high",
+      "rationale": "item_total_value unexpectedly spiked in the period starting 2017-02-20 00:00:00 (3.5 standard deviations from the recent trend).",
+      "recommendation_id": 14,
+      "related_insight_id": 14
+    },
+    {
+      "related_insight_type": "time_series_drop",
+      "action_text": "Investigate the period for a service disruption, stockout, or data issue that could explain the unexpected drop.",
+      "priority": "medium",
+      "rationale": "item_total_value unexpectedly dropped in the period starting 2017-06-05 00:00:00 (-2.3 standard deviations from the recent trend).",
+      "recommendation_id": 15,
+      "related_insight_id": 15
+    },
+    {
+      "related_insight_type": "time_series_spike",
+      "action_text": "Confirm the spike reflects a genuine demand event (e.g. a promotion) rather than a data or pricing error before adjusting inventory plans.",
+      "priority": "medium",
+      "rationale": "item_total_value unexpectedly spiked in the period starting 2017-06-19 00:00:00 (2.5 standard deviations from the recent trend).",
+      "recommendation_id": 16,
+      "related_insight_id": 16
+    },
+    {
+      "related_insight_type": "time_series_drop",
+      "action_text": "Investigate the period for a service disruption, stockout, or data issue that could explain the unexpected drop.",
+      "priority": "high",
+      "rationale": "item_total_value unexpectedly dropped in the period starting 2017-10-02 00:00:00 (-4.0 standard deviations from the recent trend).",
+      "recommendation_id": 17,
+      "related_insight_id": 17
+    },
+    {
+      "related_insight_type": "time_series_drop",
+      "action_text": "Investigate the period for a service disruption, stockout, or data issue that could explain the unexpected drop.",
+      "priority": "medium",
+      "rationale": "item_total_value unexpectedly dropped in the period starting 2017-10-23 00:00:00 (-2.1 standard deviations from the recent trend).",
+      "recommendation_id": 18,
+      "related_insight_id": 18
+    },
+    {
+      "related_insight_type": "time_series_spike",
+      "action_text": "Confirm the spike reflects a genuine demand event (e.g. a promotion) rather than a data or pricing error before adjusting inventory plans.",
+      "priority": "high",
+      "rationale": "item_total_value unexpectedly spiked in the period starting 2018-02-19 00:00:00 (5.1 standard deviations from the recent trend).",
+      "recommendation_id": 19,
+      "related_insight_id": 19
+    },
+    {
+      "related_insight_type": "time_series_drop",
+      "action_text": "Investigate the period for a service disruption, stockout, or data issue that could explain the unexpected drop.",
+      "priority": "medium",
+      "rationale": "item_total_value unexpectedly dropped in the period starting 2018-04-30 00:00:00 (-2.1 standard deviations from the recent trend).",
+      "recommendation_id": 20,
+      "related_insight_id": 20
+    },
+    {
+      "related_insight_type": "time_series_spike",
+      "action_text": "Confirm the spike reflects a genuine demand event (e.g. a promotion) rather than a data or pricing error before adjusting inventory plans.",
+      "priority": "high",
+      "rationale": "item_total_value unexpectedly spiked in the period starting 2018-05-28 00:00:00 (3.7 standard deviations from the recent trend).",
+      "recommendation_id": 21,
+      "related_insight_id": 21
+    },
+    {
+      "related_insight_type": "time_series_drop",
+      "action_text": "Investigate the period for a service disruption, stockout, or data issue that could explain the unexpected drop.",
+      "priority": "medium",
+      "rationale": "item_total_value unexpectedly dropped in the period starting 2018-07-30 00:00:00 (-2.7 standard deviations from the recent trend).",
+      "recommendation_id": 22,
+      "related_insight_id": 22
+    },
+    {
+      "related_insight_type": "row_anomalies",
+      "action_text": "Route the flagged orders to manual review, starting with orders flagged for unusual 'payment_value_total' values.",
+      "priority": "medium",
+      "rationale": "58 orders (2.9%) were flagged as unusual by multiple detection methods, most commonly due to an outlying 'payment_value_total' value.",
+      "recommendation_id": 23,
+      "related_insight_id": 23
+    }
+  ],
+  "segment_change": [
+    {
+      "segment": "unknown",
+      "recent_value": 3724.31,
+      "prior_value": 1192.34,
+      "pct_change": 212.35302011171316,
+      "direction": "increase",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "toys",
+      "recent_value": 5997.79,
+      "prior_value": 3468.34,
+      "pct_change": 72.92970124036282,
+      "direction": "increase",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "electronics",
+      "recent_value": 924.06,
+      "prior_value": 3187.21,
+      "pct_change": -71.00724458068342,
+      "direction": "decrease",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "watches_gifts",
+      "recent_value": 7962.9800000000005,
+      "prior_value": 5631.67,
+      "pct_change": 41.396424151273074,
+      "direction": "increase",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "sports_leisure",
+      "recent_value": 6215.03,
+      "prior_value": 8364.91,
+      "pct_change": -25.701173114833274,
+      "direction": "decrease",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "health_beauty",
+      "recent_value": 5190.28,
+      "prior_value": 6367.84,
+      "pct_change": -18.492298801477432,
+      "direction": "decrease",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "furniture_decor",
+      "recent_value": 4127.34,
+      "prior_value": 3803.2000000000003,
+      "pct_change": 8.522822885990742,
+      "direction": "increase",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "computers_accessories",
+      "recent_value": 4621.59,
+      "prior_value": 5046.29,
+      "pct_change": -8.416083895297334,
+      "direction": "decrease",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "bed_bath_table",
+      "recent_value": 8034.97,
+      "prior_value": 8198.07,
+      "pct_change": -1.9894926488795466,
+      "direction": "decrease",
+      "segment_type": "product_category_name_english"
+    },
+    {
+      "segment": "SC",
+      "recent_value": 5539.18,
+      "prior_value": 894.03,
+      "pct_change": 519.5742872163128,
+      "direction": "increase",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "RS",
+      "recent_value": 4694.31,
+      "prior_value": 2511.4700000000003,
+      "pct_change": 86.91483473822103,
+      "direction": "increase",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "SP",
+      "recent_value": 4800.47,
+      "prior_value": 2760.02,
+      "pct_change": 73.92881211005718,
+      "direction": "increase",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "RJ",
+      "recent_value": 2187.85,
+      "prior_value": 4675.08,
+      "pct_change": -53.2018703423257,
+      "direction": "decrease",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "BA",
+      "recent_value": 4953.23,
+      "prior_value": 8689.539999999999,
+      "pct_change": -42.997788145287316,
+      "direction": "decrease",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "PE",
+      "recent_value": 4206.3,
+      "prior_value": 6778.58,
+      "pct_change": -37.947180677959096,
+      "direction": "decrease",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "CE",
+      "recent_value": 3658.95,
+      "prior_value": 2774.9700000000003,
+      "pct_change": 31.855479518697482,
+      "direction": "increase",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "MG",
+      "recent_value": 6185.25,
+      "prior_value": 5531.46,
+      "pct_change": 11.819483463678667,
+      "direction": "increase",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "DF",
+      "recent_value": 4231.71,
+      "prior_value": 4273.17,
+      "pct_change": -0.970239892164366,
+      "direction": "decrease",
+      "segment_type": "customer_state"
+    },
+    {
+      "segment": "PR",
+      "recent_value": 6341.099999999999,
+      "prior_value": 6371.55,
+      "pct_change": -0.4779056901382039,
+      "direction": "decrease",
+      "segment_type": "customer_state"
+    }
+  ],
+  "model_comparison": [
+    {
+      "model": "linear_regression",
+      "rmse": 3.8023268568758835,
+      "mae": 3.2630721033383385,
+      "r2": -0.09354849712272006,
+      "is_best": false
+    },
+    {
+      "model": "random_forest",
+      "rmse": 3.507218139932495,
+      "mae": 3.012844455511289,
+      "r2": 0.06961069103252104,
+      "is_best": false
+    },
+    {
+      "model": "xgboost",
+      "rmse": 3.331005304423332,
+      "mae": 2.731622901095812,
+      "r2": 0.16075299044504143,
+      "is_best": true
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "categorical__customer_state_SC",
+      "importance": 0.063200943171978
+    },
+    {
+      "feature": "categorical__customer_state_RS",
+      "importance": 0.056500017642974854
+    },
+    {
+      "feature": "categorical__customer_state_MG",
+      "importance": 0.05130723863840103
+    },
+    {
+      "feature": "categorical__payment_type_primary_credit_card",
+      "importance": 0.03698465973138809
+    },
+    {
+      "feature": "categorical__customer_city_Belo Horizonte",
+      "importance": 0.03298354148864746
+    },
+    {
+      "feature": "categorical__customer_state_SP",
+      "importance": 0.032643966376781464
+    },
+    {
+      "feature": "categorical__payment_type_primary_voucher",
+      "importance": 0.03211188688874245
+    },
+    {
+      "feature": "numeric__payment_installments_max",
+      "importance": 0.030606145039200783
+    },
+    {
+      "feature": "categorical__customer_state_PR",
+      "importance": 0.02797837369143963
+    },
+    {
+      "feature": "categorical__customer_city_Salvador",
+      "importance": 0.027867106720805168
+    },
+    {
+      "feature": "numeric__payment_value_total",
+      "importance": 0.027208874002099037
+    },
+    {
+      "feature": "categorical__customer_state_RJ",
+      "importance": 0.026968175545334816
+    },
+    {
+      "feature": "categorical__customer_city_Sao Paulo",
+      "importance": 0.02501857653260231
+    },
+    {
+      "feature": "categorical__product_category_name_english_furniture_decor",
+      "importance": 0.02413172274827957
+    },
+    {
+      "feature": "categorical__customer_city_Rio De Janeiro",
+      "importance": 0.024114664644002914
+    },
+    {
+      "feature": "numeric__review_score_avg",
+      "importance": 0.02232520841062069
+    },
+    {
+      "feature": "categorical__customer_state_PE",
+      "importance": 0.02209227904677391
+    },
+    {
+      "feature": "categorical__product_category_name_english_computers_accessories",
+      "importance": 0.02156076580286026
+    },
+    {
+      "feature": "numeric__n_payment_rows",
+      "importance": 0.02143407054245472
+    },
+    {
+      "feature": "numeric__review_score_avg_was_missing",
+      "importance": 0.021432075649499893
+    }
+  ],
+  "forecast_history": [
+    {
+      "period": "2016-12-26 00:00:00",
+      "value": 2169.0
+    },
+    {
+      "period": "2017-01-02 00:00:00",
+      "value": 13320.2
+    },
+    {
+      "period": "2017-01-09 00:00:00",
+      "value": 6812.5599999999995
+    },
+    {
+      "period": "2017-01-16 00:00:00",
+      "value": 11572.21
+    },
+    {
+      "period": "2017-01-23 00:00:00",
+      "value": 10489.93
+    },
+    {
+      "period": "2017-01-30 00:00:00",
+      "value": 13539.18
+    },
+    {
+      "period": "2017-02-06 00:00:00",
+      "value": 8475.63
+    },
+    {
+      "period": "2017-02-13 00:00:00",
+      "value": 10996.34
+    },
+    {
+      "period": "2017-02-20 00:00:00",
+      "value": 18676.35
+    },
+    {
+      "period": "2017-02-27 00:00:00",
+      "value": 10496.46
+    },
+    {
+      "period": "2017-03-06 00:00:00",
+      "value": 6787.3
+    },
+    {
+      "period": "2017-03-13 00:00:00",
+      "value": 15898.07
+    },
+    {
+      "period": "2017-03-20 00:00:00",
+      "value": 15456.38
+    },
+    {
+      "period": "2017-03-27 00:00:00",
+      "value": 11070.56
+    },
+    {
+      "period": "2017-04-03 00:00:00",
+      "value": 14714.69
+    },
+    {
+      "period": "2017-04-10 00:00:00",
+      "value": 8837.460000000001
+    },
+    {
+      "period": "2017-04-17 00:00:00",
+      "value": 5818.51
+    },
+    {
+      "period": "2017-04-24 00:00:00",
+      "value": 11954.37
+    },
+    {
+      "period": "2017-05-01 00:00:00",
+      "value": 15166.85
+    },
+    {
+      "period": "2017-05-08 00:00:00",
+      "value": 8562.4
+    },
+    {
+      "period": "2017-05-15 00:00:00",
+      "value": 7557.2
+    },
+    {
+      "period": "2017-05-22 00:00:00",
+      "value": 10576.57
+    },
+    {
+      "period": "2017-05-29 00:00:00",
+      "value": 14514.17
+    },
+    {
+      "period": "2017-06-05 00:00:00",
+      "value": 4154.53
+    },
+    {
+      "period": "2017-06-12 00:00:00",
+      "value": 16465.91
+    },
+    {
+      "period": "2017-06-19 00:00:00",
+      "value": 21659.73
+    },
+    {
+      "period": "2017-06-26 00:00:00",
+      "value": 9063.77
+    },
+    {
+      "period": "2017-07-03 00:00:00",
+      "value": 16536.13
+    },
+    {
+      "period": "2017-07-10 00:00:00",
+      "value": 16707.28
+    },
+    {
+      "period": "2017-07-17 00:00:00",
+      "value": 8846.26
+    },
+    {
+      "period": "2017-07-24 00:00:00",
+      "value": 17929.07
+    },
+    {
+      "period": "2017-07-31 00:00:00",
+      "value": 24211.26
+    },
+    {
+      "period": "2017-08-07 00:00:00",
+      "value": 6720.75
+    },
+    {
+      "period": "2017-08-14 00:00:00",
+      "value": 10836.36
+    },
+    {
+      "period": "2017-08-21 00:00:00",
+      "value": 11335.33
+    },
+    {
+      "period": "2017-08-28 00:00:00",
+      "value": 12796.04
+    },
+    {
+      "period": "2017-09-04 00:00:00",
+      "value": 10219.16
+    },
+    {
+      "period": "2017-09-11 00:00:00",
+      "value": 11380.74
+    },
+    {
+      "period": "2017-09-18 00:00:00",
+      "value": 13332.42
+    },
+    {
+      "period": "2017-09-25 00:00:00",
+      "value": 13612.5
+    },
+    {
+      "period": "2017-10-02 00:00:00",
+      "value": 6767.63
+    },
+    {
+      "period": "2017-10-09 00:00:00",
+      "value": 13429.11
+    },
+    {
+      "period": "2017-10-16 00:00:00",
+      "value": 13190.27
+    },
+    {
+      "period": "2017-10-23 00:00:00",
+      "value": 6354.58
+    },
+    {
+      "period": "2017-10-30 00:00:00",
+      "value": 8326.800000000001
+    },
+    {
+      "period": "2017-11-06 00:00:00",
+      "value": 15489.9
+    },
+    {
+      "period": "2017-11-13 00:00:00",
+      "value": 7994.96
+    },
+    {
+      "period": "2017-11-20 00:00:00",
+      "value": 15646.970000000001
+    },
+    {
+      "period": "2017-11-27 00:00:00",
+      "value": 10584.61
+    },
+    {
+      "period": "2017-12-04 00:00:00",
+      "value": 16343.92
+    },
+    {
+      "period": "2017-12-11 00:00:00",
+      "value": 7482.22
+    },
+    {
+      "period": "2017-12-18 00:00:00",
+      "value": 16325.199999999999
+    },
+    {
+      "period": "2017-12-25 00:00:00",
+      "value": 17101.68
+    },
+    {
+      "period": "2018-01-01 00:00:00",
+      "value": 13007.96
+    },
+    {
+      "period": "2018-01-08 00:00:00",
+      "value": 8818.79
+    },
+    {
+      "period": "2018-01-15 00:00:00",
+      "value": 10986.09
+    },
+    {
+      "period": "2018-01-22 00:00:00",
+      "value": 7783.8099999999995
+    },
+    {
+      "period": "2018-01-29 00:00:00",
+      "value": 9168.81
+    },
+    {
+      "period": "2018-02-05 00:00:00",
+      "value": 7070.18
+    },
+    {
+      "period": "2018-02-12 00:00:00",
+      "value": 12015.97
+    },
+    {
+      "period": "2018-02-19 00:00:00",
+      "value": 18840.12
+    },
+    {
+      "period": "2018-02-26 00:00:00",
+      "value": 9896.03
+    },
+    {
+      "period": "2018-03-05 00:00:00",
+      "value": 16929.73
+    },
+    {
+      "period": "2018-03-12 00:00:00",
+      "value": 10114.25
+    },
+    {
+      "period": "2018-03-19 00:00:00",
+      "value": 9119.64
+    },
+    {
+      "period": "2018-03-26 00:00:00",
+      "value": 11437.57
+    },
+    {
+      "period": "2018-04-02 00:00:00",
+      "value": 11089.07
+    },
+    {
+      "period": "2018-04-09 00:00:00",
+      "value": 7156.47
+    },
+    {
+      "period": "2018-04-16 00:00:00",
+      "value": 10244.45
+    },
+    {
+      "period": "2018-04-23 00:00:00",
+      "value": 9179.210000000001
+    },
+    {
+      "period": "2018-04-30 00:00:00",
+      "value": 6352.32
+    },
+    {
+      "period": "2018-05-07 00:00:00",
+      "value": 12464.039999999999
+    },
+    {
+      "period": "2018-05-14 00:00:00",
+      "value": 11771.81
+    },
+    {
+      "period": "2018-05-21 00:00:00",
+      "value": 12485.64
+    },
+    {
+      "period": "2018-05-28 00:00:00",
+      "value": 19237.29
+    },
+    {
+      "period": "2018-06-04 00:00:00",
+      "value": 12141.79
+    },
+    {
+      "period": "2018-06-11 00:00:00",
+      "value": 13087.24
+    },
+    {
+      "period": "2018-06-18 00:00:00",
+      "value": 11587.47
+    },
+    {
+      "period": "2018-06-25 00:00:00",
+      "value": 12331.08
+    },
+    {
+      "period": "2018-07-02 00:00:00",
+      "value": 8254.08
+    },
+    {
+      "period": "2018-07-09 00:00:00",
+      "value": 17460.96
+    },
+    {
+      "period": "2018-07-16 00:00:00",
+      "value": 12264.51
+    },
+    {
+      "period": "2018-07-23 00:00:00",
+      "value": 12660.92
+    },
+    {
+      "period": "2018-07-30 00:00:00",
+      "value": 4411.96
+    }
+  ],
+  "forecast_future": [
+    {
+      "period": "2018-08-12 00:00:00",
+      "yhat": 12071.215593298673,
+      "yhat_lower": 8924.594547470237,
+      "yhat_upper": 15217.83663912711
+    },
+    {
+      "period": "2018-08-19 00:00:00",
+      "yhat": 11858.718172248602,
+      "yhat_lower": 8712.097126420165,
+      "yhat_upper": 15005.339218077039
+    },
+    {
+      "period": "2018-08-26 00:00:00",
+      "yhat": 11846.134393969773,
+      "yhat_lower": 8699.513348141336,
+      "yhat_upper": 14992.75543979821
+    },
+    {
+      "period": "2018-09-02 00:00:00",
+      "yhat": 11839.344566642045,
+      "yhat_lower": 8692.723520813608,
+      "yhat_upper": 14985.965612470482
+    },
+    {
+      "period": "2018-09-09 00:00:00",
+      "yhat": 11886.095575858353,
+      "yhat_lower": 8739.474530029916,
+      "yhat_upper": 15032.71662168679
+    },
+    {
+      "period": "2018-09-16 00:00:00",
+      "yhat": 11883.776681656836,
+      "yhat_lower": 8737.1556358284,
+      "yhat_upper": 15030.397727485273
+    },
+    {
+      "period": "2018-09-23 00:00:00",
+      "yhat": 11883.851569458246,
+      "yhat_lower": 8737.230523629809,
+      "yhat_upper": 15030.472615286682
+    },
+    {
+      "period": "2018-09-30 00:00:00",
+      "yhat": 11884.05258408308,
+      "yhat_lower": 8737.431538254643,
+      "yhat_upper": 15030.673629911516
+    }
+  ],
+  "forecast_model_comparison": [
+    {
+      "model": "prophet",
+      "rmse": 3591.2382231993192,
+      "mae": 2459.9990386036184,
+      "mape": 33.8111931341723,
+      "is_best": false
+    },
+    {
+      "model": "xgboost",
+      "rmse": 4358.728664602835,
+      "mae": 3700.1118310546876,
+      "mape": 37.441555271918745,
+      "is_best": false
+    },
+    {
+      "model": "lstm",
+      "rmse": 3584.6581393196666,
+      "mae": 2458.2976920534666,
+      "mape": 33.74443925519704,
+      "is_best": true
+    }
+  ],
+  "anomalous_periods": [
+    {
+      "period": "2016-12-26 00:00:00",
+      "value": 2169.0,
+      "rolling_mean": null,
+      "rolling_std": null,
+      "z_score": null,
+      "is_anomalous": false,
+      "direction": "insufficient_history"
+    },
+    {
+      "period": "2017-01-02 00:00:00",
+      "value": 13320.2,
+      "rolling_mean": null,
+      "rolling_std": null,
+      "z_score": null,
+      "is_anomalous": false,
+      "direction": "insufficient_history"
+    },
+    {
+      "period": "2017-01-09 00:00:00",
+      "value": 6812.5599999999995,
+      "rolling_mean": 7744.6,
+      "rolling_std": 7885.089138367429,
+      "z_score": -0.11820284890184202,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-01-16 00:00:00",
+      "value": 11572.21,
+      "rolling_mean": 7433.920000000001,
+      "rolling_std": 5601.507078206721,
+      "z_score": 0.7387815354372165,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-01-23 00:00:00",
+      "value": 10489.93,
+      "rolling_mean": 8468.4925,
+      "rolling_std": 5019.888650407663,
+      "z_score": 0.4026857248787461,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-01-30 00:00:00",
+      "value": 13539.18,
+      "rolling_mean": 8872.78,
+      "rolling_std": 4440.34947500194,
+      "z_score": 1.0509082733849369,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-02-06 00:00:00",
+      "value": 8475.63,
+      "rolling_mean": 9650.513333333334,
+      "rolling_std": 4404.835705765502,
+      "z_score": -0.2667258013268297,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-02-13 00:00:00",
+      "value": 10996.34,
+      "rolling_mean": 10701.618333333334,
+      "rolling_std": 2675.4912348158914,
+      "z_score": 0.11015609501219205,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-02-20 00:00:00",
+      "value": 18676.35,
+      "rolling_mean": 10314.308333333332,
+      "rolling_std": 2371.543945917229,
+      "z_score": 3.525990602477546,
+      "is_anomalous": true,
+      "direction": "spike"
+    },
+    {
+      "period": "2017-02-27 00:00:00",
+      "value": 10496.46,
+      "rolling_mean": 12291.606666666667,
+      "rolling_std": 3530.562297655524,
+      "z_score": -0.5084591391741586,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-03-06 00:00:00",
+      "value": 6787.3,
+      "rolling_mean": 12112.315,
+      "rolling_std": 3601.013681411109,
+      "z_score": -1.4787544483622503,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-03-13 00:00:00",
+      "value": 15898.07,
+      "rolling_mean": 11495.21,
+      "rolling_std": 4201.790995382801,
+      "z_score": 1.0478531666230297,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-03-20 00:00:00",
+      "value": 15456.38,
+      "rolling_mean": 11888.358333333332,
+      "rolling_std": 4528.911723385283,
+      "z_score": 0.7878320189468461,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-03-27 00:00:00",
+      "value": 11070.56,
+      "rolling_mean": 13051.816666666666,
+      "rolling_std": 4370.754149282095,
+      "z_score": -0.4532985839508021,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-04-03 00:00:00",
+      "value": 14714.69,
+      "rolling_mean": 13064.186666666666,
+      "rolling_std": 4363.872929358353,
+      "z_score": 0.3782198427982223,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-04-10 00:00:00",
+      "value": 8837.460000000001,
+      "rolling_mean": 12403.909999999998,
+      "rolling_std": 3572.9239295568536,
+      "z_score": -0.9981880583845345,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-04-17 00:00:00",
+      "value": 5818.51,
+      "rolling_mean": 12127.410000000002,
+      "rolling_std": 3806.6103985566983,
+      "z_score": -1.6573537450515197,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-04-24 00:00:00",
+      "value": 11954.37,
+      "rolling_mean": 11965.945,
+      "rolling_std": 4088.5310895858406,
+      "z_score": -0.0028310901265939576,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-05-01 00:00:00",
+      "value": 15166.85,
+      "rolling_mean": 11308.661666666667,
+      "rolling_std": 3620.133451570073,
+      "z_score": 1.0657585928662423,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-05-08 00:00:00",
+      "value": 8562.4,
+      "rolling_mean": 11260.406666666668,
+      "rolling_std": 3555.134585596817,
+      "z_score": -0.7589042275916373,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-05-15 00:00:00",
+      "value": 7557.2,
+      "rolling_mean": 10842.380000000001,
+      "rolling_std": 3725.3088478889886,
+      "z_score": -0.8818544003033751,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-05-22 00:00:00",
+      "value": 10576.57,
+      "rolling_mean": 9649.465,
+      "rolling_std": 3365.976107275568,
+      "z_score": 0.2754342189167829,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-05-29 00:00:00",
+      "value": 14514.17,
+      "rolling_mean": 9939.316666666668,
+      "rolling_std": 3356.9350128572123,
+      "z_score": 1.3628066423125376,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-06-05 00:00:00",
+      "value": 4154.53,
+      "rolling_mean": 11388.593333333332,
+      "rolling_std": 3088.393812354029,
+      "z_score": -2.3423383716144026,
+      "is_anomalous": true,
+      "direction": "drop"
+    },
+    {
+      "period": "2017-06-12 00:00:00",
+      "value": 16465.91,
+      "rolling_mean": 10088.62,
+      "rolling_std": 4232.32481671244,
+      "z_score": 1.5068054263740824,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-06-19 00:00:00",
+      "value": 21659.73,
+      "rolling_mean": 10305.13,
+      "rolling_std": 4564.274643388584,
+      "z_score": 2.4877118243634393,
+      "is_anomalous": true,
+      "direction": "spike"
+    },
+    {
+      "period": "2017-06-26 00:00:00",
+      "value": 9063.77,
+      "rolling_mean": 12488.018333333333,
+      "rolling_std": 6347.642705031266,
+      "z_score": -0.5394519654704583,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-07-03 00:00:00",
+      "value": 16536.13,
+      "rolling_mean": 12739.113333333335,
+      "rolling_std": 6139.984602122928,
+      "z_score": 0.6184081740781289,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-07-10 00:00:00",
+      "value": 16707.28,
+      "rolling_mean": 13732.373333333331,
+      "rolling_std": 6201.90944636139,
+      "z_score": 0.4796759276148447,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-07-17 00:00:00",
+      "value": 8846.26,
+      "rolling_mean": 14097.891666666668,
+      "rolling_std": 6320.690557837541,
+      "z_score": -0.8308635929273172,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-07-24 00:00:00",
+      "value": 17929.07,
+      "rolling_mean": 14879.846666666666,
+      "rolling_std": 4995.92069263981,
+      "z_score": 0.6103426216964515,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-07-31 00:00:00",
+      "value": 24211.26,
+      "rolling_mean": 15123.706666666665,
+      "rolling_std": 5122.9186539966295,
+      "z_score": 1.7739015485330234,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-08-07 00:00:00",
+      "value": 6720.75,
+      "rolling_mean": 15548.961666666668,
+      "rolling_std": 5830.959635591438,
+      "z_score": -1.514023800264434,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-08-14 00:00:00",
+      "value": 10836.36,
+      "rolling_mean": 15158.458333333334,
+      "rolling_std": 6402.579238361415,
+      "z_score": -0.6750558130444114,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-08-21 00:00:00",
+      "value": 11335.33,
+      "rolling_mean": 14208.496666666666,
+      "rolling_std": 6577.73663642036,
+      "z_score": -0.4368017185057532,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-08-28 00:00:00",
+      "value": 12796.04,
+      "rolling_mean": 13313.171666666669,
+      "rolling_std": 6535.053537719231,
+      "z_score": -0.07913197094436503,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-09-04 00:00:00",
+      "value": 10219.16,
+      "rolling_mean": 13971.468333333332,
+      "rolling_std": 6184.6361577554935,
+      "z_score": -0.6067144837013512,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-09-11 00:00:00",
+      "value": 11380.74,
+      "rolling_mean": 12686.483333333332,
+      "rolling_std": 5995.977154628479,
+      "z_score": -0.2177698979932551,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-09-18 00:00:00",
+      "value": 13332.42,
+      "rolling_mean": 10548.063333333334,
+      "rolling_std": 2059.425067912558,
+      "z_score": 1.3520067858010985,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-09-25 00:00:00",
+      "value": 13612.5,
+      "rolling_mean": 11650.008333333333,
+      "rolling_std": 1185.3080653807444,
+      "z_score": 1.6556806825036456,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-10-02 00:00:00",
+      "value": 6767.63,
+      "rolling_mean": 12112.698333333334,
+      "rolling_std": 1336.3857051078642,
+      "z_score": -3.9996449474906015,
+      "is_anomalous": true,
+      "direction": "drop"
+    },
+    {
+      "period": "2017-10-09 00:00:00",
+      "value": 13429.11,
+      "rolling_mean": 11351.415,
+      "rolling_std": 2585.2571958994677,
+      "z_score": 0.8036705219486389,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-10-16 00:00:00",
+      "value": 13190.27,
+      "rolling_mean": 11456.926666666666,
+      "rolling_std": 2667.615140770243,
+      "z_score": 0.6497726403040475,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-10-23 00:00:00",
+      "value": 6354.58,
+      "rolling_mean": 11952.111666666666,
+      "rolling_std": 2667.658763076088,
+      "z_score": -2.0982937338702685,
+      "is_anomalous": true,
+      "direction": "drop"
+    },
+    {
+      "period": "2017-10-30 00:00:00",
+      "value": 8326.800000000001,
+      "rolling_mean": 11114.418333333333,
+      "rolling_std": 3532.0682562680813,
+      "z_score": -0.7892311617665845,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-11-06 00:00:00",
+      "value": 15489.9,
+      "rolling_mean": 10280.148333333333,
+      "rolling_std": 3494.360508484584,
+      "z_score": 1.4909027428672508,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-11-13 00:00:00",
+      "value": 7994.96,
+      "rolling_mean": 10593.048333333334,
+      "rolling_std": 3911.579812666059,
+      "z_score": -0.6642043516331899,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-11-20 00:00:00",
+      "value": 15646.970000000001,
+      "rolling_mean": 10797.603333333333,
+      "rolling_std": 3697.7686306456003,
+      "z_score": 1.3114305277180116,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-11-27 00:00:00",
+      "value": 10584.61,
+      "rolling_mean": 11167.246666666666,
+      "rolling_std": 4102.174467199883,
+      "z_score": -0.14203117671500923,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-12-04 00:00:00",
+      "value": 16343.92,
+      "rolling_mean": 10732.970000000001,
+      "rolling_std": 3981.31740848679,
+      "z_score": 1.4093199371744127,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-12-11 00:00:00",
+      "value": 7482.22,
+      "rolling_mean": 12397.86,
+      "rolling_std": 3871.3240673805626,
+      "z_score": -1.26975678461505,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-12-18 00:00:00",
+      "value": 16325.199999999999,
+      "rolling_mean": 12257.096666666666,
+      "rolling_std": 4059.7253937509927,
+      "z_score": 1.0020636714973963,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2017-12-25 00:00:00",
+      "value": 17101.68,
+      "rolling_mean": 12396.313333333334,
+      "rolling_std": 4204.4978539733675,
+      "z_score": 1.1191269041129286,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-01-01 00:00:00",
+      "value": 13007.96,
+      "rolling_mean": 13914.1,
+      "rolling_std": 3932.82384884449,
+      "z_score": -0.2304044205453636,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-01-08 00:00:00",
+      "value": 8818.79,
+      "rolling_mean": 13474.265,
+      "rolling_std": 3846.895876666015,
+      "z_score": -1.210190020540601,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-01-15 00:00:00",
+      "value": 10986.09,
+      "rolling_mean": 13179.961666666664,
+      "rolling_std": 4166.45398808347,
+      "z_score": -0.5265560769280989,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-01-22 00:00:00",
+      "value": 7783.8099999999995,
+      "rolling_mean": 12286.99,
+      "rolling_std": 3919.5597799752945,
+      "z_score": -1.1488994307489258,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-01-29 00:00:00",
+      "value": 9168.81,
+      "rolling_mean": 12337.255,
+      "rolling_std": 3846.8792620031604,
+      "z_score": -0.8236403547404594,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-02-05 00:00:00",
+      "value": 7070.18,
+      "rolling_mean": 11144.523333333333,
+      "rolling_std": 3452.3060613199755,
+      "z_score": -1.180180221847284,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-02-12 00:00:00",
+      "value": 12015.97,
+      "rolling_mean": 9472.606666666667,
+      "rolling_std": 2187.821368856843,
+      "z_score": 1.1625095949502786,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-02-19 00:00:00",
+      "value": 18840.12,
+      "rolling_mean": 9307.275,
+      "rolling_std": 1883.5486828829148,
+      "z_score": 5.061108898661039,
+      "is_anomalous": true,
+      "direction": "spike"
+    },
+    {
+      "period": "2018-02-26 00:00:00",
+      "value": 9896.03,
+      "rolling_mean": 10977.496666666666,
+      "rolling_std": 4281.0618287507405,
+      "z_score": -0.2526164558997385,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-03-05 00:00:00",
+      "value": 16929.73,
+      "rolling_mean": 10795.82,
+      "rolling_std": 4303.693988805427,
+      "z_score": 1.425266298197606,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-03-12 00:00:00",
+      "value": 10114.25,
+      "rolling_mean": 12320.14,
+      "rolling_std": 4630.772044054855,
+      "z_score": -0.4763546939936284,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-03-19 00:00:00",
+      "value": 9119.64,
+      "rolling_mean": 12477.713333333333,
+      "rolling_std": 4516.776337409971,
+      "z_score": -0.7434668184741098,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-03-26 00:00:00",
+      "value": 11437.57,
+      "rolling_mean": 12819.29,
+      "rolling_std": 4082.6837853696156,
+      "z_score": -0.33843424390383214,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-04-02 00:00:00",
+      "value": 11089.07,
+      "rolling_mean": 12722.89,
+      "rolling_std": 4112.167404972708,
+      "z_score": -0.39731359137380334,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-04-09 00:00:00",
+      "value": 7156.47,
+      "rolling_mean": 11431.048333333334,
+      "rolling_std": 2820.827516941905,
+      "z_score": -1.5153632427577348,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-04-16 00:00:00",
+      "value": 10244.45,
+      "rolling_mean": 10974.455,
+      "rolling_std": 3300.006461010336,
+      "z_score": -0.22121320325430502,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-04-23 00:00:00",
+      "value": 9179.210000000001,
+      "rolling_mean": 9860.241666666667,
+      "rolling_std": 1553.6403750471407,
+      "z_score": -0.4383457572322694,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-04-30 00:00:00",
+      "value": 6352.32,
+      "rolling_mean": 9704.401666666667,
+      "rolling_std": 1569.8763861452971,
+      "z_score": -2.1352519830541747,
+      "is_anomalous": true,
+      "direction": "drop"
+    },
+    {
+      "period": "2018-05-07 00:00:00",
+      "value": 12464.039999999999,
+      "rolling_mean": 9243.181666666667,
+      "rolling_std": 2094.7897890567956,
+      "z_score": 1.5375568231996979,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-05-14 00:00:00",
+      "value": 11771.81,
+      "rolling_mean": 9414.26,
+      "rolling_std": 2337.6784539709365,
+      "z_score": 1.00850054719686,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-05-21 00:00:00",
+      "value": 12485.64,
+      "rolling_mean": 9528.050000000001,
+      "rolling_std": 2449.4516632340287,
+      "z_score": 1.207449832300455,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-05-28 00:00:00",
+      "value": 19237.29,
+      "rolling_mean": 10416.245,
+      "rolling_std": 2382.7996985122268,
+      "z_score": 3.701966642646332,
+      "is_anomalous": true,
+      "direction": "spike"
+    },
+    {
+      "period": "2018-06-04 00:00:00",
+      "value": 12141.79,
+      "rolling_mean": 11915.051666666666,
+      "rolling_std": 4305.611799544478,
+      "z_score": 0.05266111853310205,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-06-11 00:00:00",
+      "value": 13087.24,
+      "rolling_mean": 12408.815,
+      "rolling_std": 4093.7814331629856,
+      "z_score": 0.16572086494510932,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-06-18 00:00:00",
+      "value": 11587.47,
+      "rolling_mean": 13531.301666666668,
+      "rolling_std": 2828.939837009027,
+      "z_score": -0.6871237207793847,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-06-25 00:00:00",
+      "value": 12331.08,
+      "rolling_mean": 13385.206666666665,
+      "rolling_std": 2916.363303710061,
+      "z_score": -0.36145245186896113,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-07-02 00:00:00",
+      "value": 8254.08,
+      "rolling_mean": 13478.418333333333,
+      "rolling_std": 2862.9313066395184,
+      "z_score": -1.8248214063737394,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-07-09 00:00:00",
+      "value": 17460.96,
+      "rolling_mean": 12773.158333333333,
+      "rolling_std": 3586.241222480253,
+      "z_score": 1.307162953033196,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-07-16 00:00:00",
+      "value": 12264.51,
+      "rolling_mean": 12477.103333333333,
+      "rolling_std": 2965.4755238556018,
+      "z_score": -0.07168945810651181,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-07-23 00:00:00",
+      "value": 12660.92,
+      "rolling_mean": 12497.556666666665,
+      "rolling_std": 2963.122551422174,
+      "z_score": 0.05513215552118392,
+      "is_anomalous": false,
+      "direction": "normal"
+    },
+    {
+      "period": "2018-07-30 00:00:00",
+      "value": 4411.96,
+      "rolling_mean": 12426.503333333334,
+      "rolling_std": 2951.2419745501475,
+      "z_score": -2.715651038595362,
+      "is_anomalous": true,
+      "direction": "drop"
+    }
+  ],
+  "anomaly_ensemble_summary": {
+    "methods_used": [
+      "isolation_forest",
+      "lof",
+      "one_class_svm",
+      "autoencoder"
+    ],
+    "min_votes_for_consensus": 2,
+    "n_consensus_anomalies": 58,
+    "pct_consensus_anomalies": 2.86
+  },
+  "ml_model_summary": {
+    "best_model_name": "xgboost",
+    "problem_type": "regression",
+    "best_model_metrics": {
+      "rmse": 3.331005304423332,
+      "mae": 2.731622901095812,
+      "r2": 0.16075299044504143
+    }
+  },
+  "forecasting_summary": {
+    "best_model_name": "lstm",
+    "best_model_metrics": {
+      "rmse": 3584.6581393196666,
+      "mae": 2458.2976920534666,
+      "mape": 33.74443925519704
+    }
+  }
+}

@@ -1,0 +1,506 @@
+{
+  "agent_name": "anomaly_detection",
+  "run_id": "20260919T102628",
+  "status": "success",
+  "created_at": "2026-09-19T10:26:28.969504",
+  "output_dir": "data\\processed\\anomaly_detection",
+  "primary_table": "unified_cleaned",
+  "tables": {
+    "row_anomalies": {
+      "name": "row_anomalies",
+      "n_rows": 2027,
+      "n_columns": 21,
+      "columns": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "price",
+        "freight_value",
+        "item_total_value",
+        "payment_value_total",
+        "payment_installments_max",
+        "delivery_days",
+        "review_score_avg",
+        "product_weight_g",
+        "isolation_forest_flag",
+        "isolation_forest_score",
+        "lof_flag",
+        "lof_score",
+        "one_class_svm_flag",
+        "one_class_svm_score",
+        "autoencoder_flag",
+        "autoencoder_score",
+        "vote_count",
+        "is_anomaly_consensus"
+      ],
+      "dtypes": {
+        "order_id": "string",
+        "order_item_id": "string",
+        "product_id": "string",
+        "price": "float64",
+        "freight_value": "float64",
+        "item_total_value": "float64",
+        "payment_value_total": "float64",
+        "payment_installments_max": "int64",
+        "delivery_days": "float64",
+        "review_score_avg": "float64",
+        "product_weight_g": "int64",
+        "isolation_forest_flag": "bool",
+        "isolation_forest_score": "float64",
+        "lof_flag": "bool",
+        "lof_score": "float64",
+        "one_class_svm_flag": "bool",
+        "one_class_svm_score": "float64",
+        "autoencoder_flag": "bool",
+        "autoencoder_score": "float32",
+        "vote_count": "int64",
+        "is_anomaly_consensus": "bool"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "order_item_id": 0,
+        "product_id": 0,
+        "price": 0,
+        "freight_value": 0,
+        "item_total_value": 0,
+        "payment_value_total": 0,
+        "payment_installments_max": 0,
+        "delivery_days": 773,
+        "review_score_avg": 300,
+        "product_weight_g": 0,
+        "isolation_forest_flag": 0,
+        "isolation_forest_score": 0,
+        "lof_flag": 0,
+        "lof_score": 0,
+        "one_class_svm_flag": 0,
+        "one_class_svm_score": 0,
+        "autoencoder_flag": 0,
+        "autoencoder_score": 0,
+        "vote_count": 0,
+        "is_anomaly_consensus": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "order_item_id": 0.0,
+        "product_id": 0.0,
+        "price": 0.0,
+        "freight_value": 0.0,
+        "item_total_value": 0.0,
+        "payment_value_total": 0.0,
+        "payment_installments_max": 0.0,
+        "delivery_days": 38.14,
+        "review_score_avg": 14.8,
+        "product_weight_g": 0.0,
+        "isolation_forest_flag": 0.0,
+        "isolation_forest_score": 0.0,
+        "lof_flag": 0.0,
+        "lof_score": 0.0,
+        "one_class_svm_flag": 0.0,
+        "one_class_svm_score": 0.0,
+        "autoencoder_flag": 0.0,
+        "autoencoder_score": 0.0,
+        "vote_count": 0.0,
+        "is_anomaly_consensus": 0.0
+      },
+      "memory_mb": 0.558,
+      "date_range": null,
+      "file_path": "row_anomalies.parquet"
+    },
+    "anomalous_periods": {
+      "name": "anomalous_periods",
+      "n_rows": 84,
+      "n_columns": 7,
+      "columns": [
+        "period",
+        "value",
+        "rolling_mean",
+        "rolling_std",
+        "z_score",
+        "is_anomalous",
+        "direction"
+      ],
+      "dtypes": {
+        "period": "datetime64[ns]",
+        "value": "float64",
+        "rolling_mean": "float64",
+        "rolling_std": "float64",
+        "z_score": "float64",
+        "is_anomalous": "bool",
+        "direction": "object"
+      },
+      "null_counts": {
+        "period": 0,
+        "value": 0,
+        "rolling_mean": 2,
+        "rolling_std": 2,
+        "z_score": 2,
+        "is_anomalous": 0,
+        "direction": 0
+      },
+      "null_pct": {
+        "period": 0.0,
+        "value": 0.0,
+        "rolling_mean": 2.38,
+        "rolling_std": 2.38,
+        "z_score": 2.38,
+        "is_anomalous": 0.0,
+        "direction": 0.0
+      },
+      "memory_mb": 0.008,
+      "date_range": {
+        "min": "2016-12-26 00:00:00",
+        "max": "2018-07-30 00:00:00"
+      },
+      "file_path": "anomalous_periods.parquet"
+    },
+    "anomaly_method_summary": {
+      "name": "anomaly_method_summary",
+      "n_rows": 4,
+      "n_columns": 3,
+      "columns": [
+        "method",
+        "n_flagged",
+        "pct_flagged"
+      ],
+      "dtypes": {
+        "method": "object",
+        "n_flagged": "int64",
+        "pct_flagged": "float64"
+      },
+      "null_counts": {
+        "method": 0,
+        "n_flagged": 0,
+        "pct_flagged": 0
+      },
+      "null_pct": {
+        "method": 0.0,
+        "n_flagged": 0.0,
+        "pct_flagged": 0.0
+      },
+      "memory_mb": 0.0,
+      "date_range": null,
+      "file_path": "anomaly_method_summary.parquet"
+    },
+    "unified_cleaned": {
+      "name": "unified_cleaned",
+      "n_rows": 2027,
+      "n_columns": 40,
+      "columns": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm",
+        "product_category_name_english",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state",
+        "payment_value_total",
+        "payment_installments_max",
+        "payment_type_primary",
+        "n_payment_rows",
+        "review_score_avg",
+        "delivery_days",
+        "item_total_value",
+        "review_score_avg_was_missing",
+        "product_weight_g_is_outlier",
+        "delivery_days_is_outlier"
+      ],
+      "dtypes": {
+        "order_id": "string",
+        "order_item_id": "string",
+        "product_id": "string",
+        "seller_id": "string",
+        "shipping_limit_date": "datetime64[ns]",
+        "price": "float64",
+        "freight_value": "float64",
+        "customer_id": "string",
+        "order_status": "category",
+        "order_purchase_timestamp": "datetime64[ns]",
+        "order_approved_at": "datetime64[ns]",
+        "order_delivered_carrier_date": "datetime64[ns]",
+        "order_delivered_customer_date": "datetime64[ns]",
+        "order_estimated_delivery_date": "datetime64[ns]",
+        "product_category_name": "category",
+        "product_name_lenght": "int64",
+        "product_description_lenght": "int64",
+        "product_photos_qty": "int64",
+        "product_weight_g": "int64",
+        "product_length_cm": "int64",
+        "product_height_cm": "int64",
+        "product_width_cm": "int64",
+        "product_category_name_english": "category",
+        "seller_zip_code_prefix": "int64",
+        "seller_city": "string",
+        "seller_state": "category",
+        "customer_unique_id": "string",
+        "customer_zip_code_prefix": "int64",
+        "customer_city": "string",
+        "customer_state": "category",
+        "payment_value_total": "float64",
+        "payment_installments_max": "int64",
+        "payment_type_primary": "category",
+        "n_payment_rows": "int64",
+        "review_score_avg": "float64",
+        "delivery_days": "float64",
+        "item_total_value": "float64",
+        "review_score_avg_was_missing": "bool",
+        "product_weight_g_is_outlier": "bool",
+        "delivery_days_is_outlier": "bool"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "order_item_id": 0,
+        "product_id": 0,
+        "seller_id": 0,
+        "shipping_limit_date": 0,
+        "price": 0,
+        "freight_value": 0,
+        "customer_id": 0,
+        "order_status": 0,
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 773,
+        "order_delivered_carrier_date": 773,
+        "order_delivered_customer_date": 773,
+        "order_estimated_delivery_date": 0,
+        "product_category_name": 0,
+        "product_name_lenght": 0,
+        "product_description_lenght": 0,
+        "product_photos_qty": 0,
+        "product_weight_g": 0,
+        "product_length_cm": 0,
+        "product_height_cm": 0,
+        "product_width_cm": 0,
+        "product_category_name_english": 0,
+        "seller_zip_code_prefix": 0,
+        "seller_city": 0,
+        "seller_state": 0,
+        "customer_unique_id": 0,
+        "customer_zip_code_prefix": 0,
+        "customer_city": 0,
+        "customer_state": 0,
+        "payment_value_total": 0,
+        "payment_installments_max": 0,
+        "payment_type_primary": 0,
+        "n_payment_rows": 0,
+        "review_score_avg": 300,
+        "delivery_days": 773,
+        "item_total_value": 0,
+        "review_score_avg_was_missing": 0,
+        "product_weight_g_is_outlier": 0,
+        "delivery_days_is_outlier": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "order_item_id": 0.0,
+        "product_id": 0.0,
+        "seller_id": 0.0,
+        "shipping_limit_date": 0.0,
+        "price": 0.0,
+        "freight_value": 0.0,
+        "customer_id": 0.0,
+        "order_status": 0.0,
+        "order_purchase_timestamp": 0.0,
+        "order_approved_at": 38.14,
+        "order_delivered_carrier_date": 38.14,
+        "order_delivered_customer_date": 38.14,
+        "order_estimated_delivery_date": 0.0,
+        "product_category_name": 0.0,
+        "product_name_lenght": 0.0,
+        "product_description_lenght": 0.0,
+        "product_photos_qty": 0.0,
+        "product_weight_g": 0.0,
+        "product_length_cm": 0.0,
+        "product_height_cm": 0.0,
+        "product_width_cm": 0.0,
+        "product_category_name_english": 0.0,
+        "seller_zip_code_prefix": 0.0,
+        "seller_city": 0.0,
+        "seller_state": 0.0,
+        "customer_unique_id": 0.0,
+        "customer_zip_code_prefix": 0.0,
+        "customer_city": 0.0,
+        "customer_state": 0.0,
+        "payment_value_total": 0.0,
+        "payment_installments_max": 0.0,
+        "payment_type_primary": 0.0,
+        "n_payment_rows": 0.0,
+        "review_score_avg": 14.8,
+        "delivery_days": 38.14,
+        "item_total_value": 0.0,
+        "review_score_avg_was_missing": 0.0,
+        "product_weight_g_is_outlier": 0.0,
+        "delivery_days_is_outlier": 0.0
+      },
+      "memory_mb": 1.344,
+      "date_range": {
+        "min": "2017-01-01 01:43:17",
+        "max": "2018-07-31 18:46:52"
+      },
+      "file_path": "unified_passthrough.parquet"
+    }
+  },
+  "upstream_manifest": "data\\processed\\eda/manifest.json",
+  "logs": [
+    {
+      "timestamp": "2026-09-19T10:26:23.598455",
+      "level": "INFO",
+      "message": "Starting anomaly_detection run"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:23.613829",
+      "level": "INFO",
+      "message": "Loaded upstream primary table 'unified_cleaned': 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:23.614125",
+      "level": "INFO",
+      "message": "Row-level anomaly features — numeric: ['price', 'freight_value', 'item_total_value', 'payment_value_total', 'payment_installments_max', 'delivery_days', 'review_score_avg', 'product_weight_g'], categorical: ['payment_type_primary', 'customer_state', 'seller_state', 'product_category_name_english']"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.349245",
+      "level": "INFO",
+      "message": "'isolation_forest' flagged 61 rows (3.01%)"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.349640",
+      "level": "INFO",
+      "message": "'lof' flagged 61 rows (3.01%)"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.349956",
+      "level": "INFO",
+      "message": "'one_class_svm' flagged 77 rows (3.8%)"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.350278",
+      "level": "INFO",
+      "message": "'autoencoder' flagged 61 rows (3.01%)"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.350755",
+      "level": "INFO",
+      "message": "Consensus (>= 2/4 methods agree): 58 rows (2.86%)"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.381459",
+      "level": "INFO",
+      "message": "Time-series anomalies: 9 of 84 periods flagged"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.384273",
+      "level": "INFO",
+      "message": "  2017-02-20 00:00:00: value=18676.35, z=3.53, direction=spike"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.384854",
+      "level": "INFO",
+      "message": "  2017-06-05 00:00:00: value=4154.53, z=-2.34, direction=drop"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.385322",
+      "level": "INFO",
+      "message": "  2017-06-19 00:00:00: value=21659.73, z=2.49, direction=spike"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.385686",
+      "level": "INFO",
+      "message": "  2017-10-02 00:00:00: value=6767.63, z=-4.00, direction=drop"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.386014",
+      "level": "INFO",
+      "message": "  2017-10-23 00:00:00: value=6354.58, z=-2.10, direction=drop"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.386264",
+      "level": "INFO",
+      "message": "  2018-02-19 00:00:00: value=18840.12, z=5.06, direction=spike"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.386481",
+      "level": "INFO",
+      "message": "  2018-04-30 00:00:00: value=6352.32, z=-2.14, direction=drop"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.386702",
+      "level": "INFO",
+      "message": "  2018-05-28 00:00:00: value=19237.29, z=3.70, direction=spike"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.386934",
+      "level": "INFO",
+      "message": "  2018-07-30 00:00:00: value=4411.96, z=-2.72, direction=drop"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.969036",
+      "level": "INFO",
+      "message": "Generated 2 chart(s) under data\\processed\\anomaly_detection/charts/"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:28.970889",
+      "level": "INFO",
+      "message": "Finished anomaly_detection run in 5.37s"
+    }
+  ],
+  "extra_metadata": {
+    "contamination": 0.03,
+    "min_votes_for_consensus": 2,
+    "row_level_method_summary": {
+      "isolation_forest": {
+        "n_flagged": 61,
+        "pct_flagged": 3.01
+      },
+      "lof": {
+        "n_flagged": 61,
+        "pct_flagged": 3.01
+      },
+      "one_class_svm": {
+        "n_flagged": 77,
+        "pct_flagged": 3.8
+      },
+      "autoencoder": {
+        "n_flagged": 61,
+        "pct_flagged": 3.01
+      },
+      "ensemble": {
+        "methods_used": [
+          "isolation_forest",
+          "lof",
+          "one_class_svm",
+          "autoencoder"
+        ],
+        "min_votes_for_consensus": 2,
+        "n_consensus_anomalies": 58,
+        "pct_consensus_anomalies": 2.86
+      }
+    },
+    "n_time_series_anomalies": 9,
+    "chart_paths": [
+      "charts/row_anomaly_scatter.png",
+      "charts/time_series_anomalies.png"
+    ],
+    "elapsed_seconds": 5.37
+  }
+}

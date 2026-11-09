@@ -1,0 +1,642 @@
+{
+  "agent_name": "data_ingestion",
+  "run_id": "20260919T102609",
+  "status": "success",
+  "created_at": "2026-09-19T10:26:09.899431",
+  "output_dir": "data\\processed\\data_ingestion",
+  "primary_table": "unified",
+  "tables": {
+    "raw__orders": {
+      "name": "orders",
+      "n_rows": 1000,
+      "n_columns": 8,
+      "columns": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "customer_id": "object",
+        "order_status": "object",
+        "order_purchase_timestamp": "datetime64[ns]",
+        "order_approved_at": "datetime64[ns]",
+        "order_delivered_carrier_date": "datetime64[ns]",
+        "order_delivered_customer_date": "datetime64[ns]",
+        "order_estimated_delivery_date": "datetime64[ns]"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "customer_id": 0,
+        "order_status": 0,
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 381,
+        "order_delivered_carrier_date": 381,
+        "order_delivered_customer_date": 381,
+        "order_estimated_delivery_date": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "customer_id": 0.0,
+        "order_status": 0.0,
+        "order_purchase_timestamp": 0.0,
+        "order_approved_at": 38.1,
+        "order_delivered_carrier_date": 38.1,
+        "order_delivered_customer_date": 38.1,
+        "order_estimated_delivery_date": 0.0
+      },
+      "memory_mb": 0.219,
+      "date_range": {
+        "min": "2017-01-01 07:34:02",
+        "max": "2018-07-31 15:39:00"
+      },
+      "file_path": "raw_tables/orders.parquet"
+    },
+    "raw__customers": {
+      "name": "customers",
+      "n_rows": 400,
+      "n_columns": 5,
+      "columns": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "dtypes": {
+        "customer_id": "object",
+        "customer_unique_id": "object",
+        "customer_zip_code_prefix": "int64",
+        "customer_city": "object",
+        "customer_state": "object"
+      },
+      "null_counts": {
+        "customer_id": 0,
+        "customer_unique_id": 0,
+        "customer_zip_code_prefix": 0,
+        "customer_city": 0,
+        "customer_state": 0
+      },
+      "null_pct": {
+        "customer_id": 0.0,
+        "customer_unique_id": 0.0,
+        "customer_zip_code_prefix": 0.0,
+        "customer_city": 0.0,
+        "customer_state": 0.0
+      },
+      "memory_mb": 0.096,
+      "date_range": null,
+      "file_path": "raw_tables/customers.parquet"
+    },
+    "raw__order_items": {
+      "name": "order_items",
+      "n_rows": 2027,
+      "n_columns": 7,
+      "columns": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "order_item_id": "int64",
+        "product_id": "object",
+        "seller_id": "object",
+        "shipping_limit_date": "datetime64[ns]",
+        "price": "float64",
+        "freight_value": "float64"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "order_item_id": 0,
+        "product_id": 0,
+        "seller_id": 0,
+        "shipping_limit_date": 0,
+        "price": 0,
+        "freight_value": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "order_item_id": 0.0,
+        "product_id": 0.0,
+        "seller_id": 0.0,
+        "shipping_limit_date": 0.0,
+        "price": 0.0,
+        "freight_value": 0.0
+      },
+      "memory_mb": 0.448,
+      "date_range": {
+        "min": "2017-01-01 01:43:17",
+        "max": "2018-07-31 18:46:52"
+      },
+      "file_path": "raw_tables/order_items.parquet"
+    },
+    "raw__payments": {
+      "name": "payments",
+      "n_rows": 1257,
+      "n_columns": 5,
+      "columns": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "payment_sequential": "int64",
+        "payment_type": "object",
+        "payment_installments": "int64",
+        "payment_value": "float64"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "payment_sequential": 0,
+        "payment_type": 0,
+        "payment_installments": 0,
+        "payment_value": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "payment_sequential": 0.0,
+        "payment_type": 0.0,
+        "payment_installments": 0.0,
+        "payment_value": 0.0
+      },
+      "memory_mb": 0.179,
+      "date_range": null,
+      "file_path": "raw_tables/payments.parquet"
+    },
+    "raw__reviews": {
+      "name": "reviews",
+      "n_rows": 850,
+      "n_columns": 7,
+      "columns": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "dtypes": {
+        "review_id": "object",
+        "order_id": "object",
+        "review_score": "int64",
+        "review_comment_title": "float64",
+        "review_comment_message": "float64",
+        "review_creation_date": "datetime64[ns]",
+        "review_answer_timestamp": "datetime64[ns]"
+      },
+      "null_counts": {
+        "review_id": 0,
+        "order_id": 0,
+        "review_score": 0,
+        "review_comment_title": 850,
+        "review_comment_message": 850,
+        "review_creation_date": 0,
+        "review_answer_timestamp": 0
+      },
+      "null_pct": {
+        "review_id": 0.0,
+        "order_id": 0.0,
+        "review_score": 0.0,
+        "review_comment_title": 100.0,
+        "review_comment_message": 100.0,
+        "review_creation_date": 0.0,
+        "review_answer_timestamp": 0.0
+      },
+      "memory_mb": 0.136,
+      "date_range": {
+        "min": "2017-01-01 00:39:56",
+        "max": "2018-07-31 10:45:05"
+      },
+      "file_path": "raw_tables/reviews.parquet"
+    },
+    "raw__products": {
+      "name": "products",
+      "n_rows": 150,
+      "n_columns": 9,
+      "columns": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "dtypes": {
+        "product_id": "object",
+        "product_category_name": "object",
+        "product_name_lenght": "int64",
+        "product_description_lenght": "int64",
+        "product_photos_qty": "int64",
+        "product_weight_g": "int64",
+        "product_length_cm": "int64",
+        "product_height_cm": "int64",
+        "product_width_cm": "int64"
+      },
+      "null_counts": {
+        "product_id": 0,
+        "product_category_name": 8,
+        "product_name_lenght": 0,
+        "product_description_lenght": 0,
+        "product_photos_qty": 0,
+        "product_weight_g": 0,
+        "product_length_cm": 0,
+        "product_height_cm": 0,
+        "product_width_cm": 0
+      },
+      "null_pct": {
+        "product_id": 0.0,
+        "product_category_name": 5.33,
+        "product_name_lenght": 0.0,
+        "product_description_lenght": 0.0,
+        "product_photos_qty": 0.0,
+        "product_weight_g": 0.0,
+        "product_length_cm": 0.0,
+        "product_height_cm": 0.0,
+        "product_width_cm": 0.0
+      },
+      "memory_mb": 0.027,
+      "date_range": null,
+      "file_path": "raw_tables/products.parquet"
+    },
+    "raw__sellers": {
+      "name": "sellers",
+      "n_rows": 60,
+      "n_columns": 4,
+      "columns": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "dtypes": {
+        "seller_id": "object",
+        "seller_zip_code_prefix": "int64",
+        "seller_city": "object",
+        "seller_state": "object"
+      },
+      "null_counts": {
+        "seller_id": 0,
+        "seller_zip_code_prefix": 0,
+        "seller_city": 0,
+        "seller_state": 0
+      },
+      "null_pct": {
+        "seller_id": 0.0,
+        "seller_zip_code_prefix": 0.0,
+        "seller_city": 0.0,
+        "seller_state": 0.0
+      },
+      "memory_mb": 0.011,
+      "date_range": null,
+      "file_path": "raw_tables/sellers.parquet"
+    },
+    "raw__geolocation": {
+      "name": "geolocation",
+      "n_rows": 300,
+      "n_columns": 5,
+      "columns": [
+        "geolocation_zip_code_prefix",
+        "geolocation_lat",
+        "geolocation_lng",
+        "geolocation_city",
+        "geolocation_state"
+      ],
+      "dtypes": {
+        "geolocation_zip_code_prefix": "int64",
+        "geolocation_lat": "float64",
+        "geolocation_lng": "float64",
+        "geolocation_city": "object",
+        "geolocation_state": "object"
+      },
+      "null_counts": {
+        "geolocation_zip_code_prefix": 0,
+        "geolocation_lat": 0,
+        "geolocation_lng": 0,
+        "geolocation_city": 0,
+        "geolocation_state": 0
+      },
+      "null_pct": {
+        "geolocation_zip_code_prefix": 0.0,
+        "geolocation_lat": 0.0,
+        "geolocation_lng": 0.0,
+        "geolocation_city": 0.0,
+        "geolocation_state": 0.0
+      },
+      "memory_mb": 0.04,
+      "date_range": null,
+      "file_path": "raw_tables/geolocation.parquet"
+    },
+    "raw__category_translation": {
+      "name": "category_translation",
+      "n_rows": 8,
+      "n_columns": 2,
+      "columns": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "dtypes": {
+        "product_category_name": "object",
+        "product_category_name_english": "object"
+      },
+      "null_counts": {
+        "product_category_name": 0,
+        "product_category_name_english": 0
+      },
+      "null_pct": {
+        "product_category_name": 0.0,
+        "product_category_name_english": 0.0
+      },
+      "memory_mb": 0.001,
+      "date_range": null,
+      "file_path": "raw_tables/category_translation.parquet"
+    },
+    "unified": {
+      "name": "unified",
+      "n_rows": 2027,
+      "n_columns": 37,
+      "columns": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm",
+        "product_category_name_english",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state",
+        "payment_value_total",
+        "payment_installments_max",
+        "payment_type_primary",
+        "n_payment_rows",
+        "review_score_avg",
+        "delivery_days",
+        "item_total_value"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "order_item_id": "int64",
+        "product_id": "object",
+        "seller_id": "object",
+        "shipping_limit_date": "datetime64[ns]",
+        "price": "float64",
+        "freight_value": "float64",
+        "customer_id": "object",
+        "order_status": "object",
+        "order_purchase_timestamp": "datetime64[ns]",
+        "order_approved_at": "datetime64[ns]",
+        "order_delivered_carrier_date": "datetime64[ns]",
+        "order_delivered_customer_date": "datetime64[ns]",
+        "order_estimated_delivery_date": "datetime64[ns]",
+        "product_category_name": "object",
+        "product_name_lenght": "int64",
+        "product_description_lenght": "int64",
+        "product_photos_qty": "int64",
+        "product_weight_g": "int64",
+        "product_length_cm": "int64",
+        "product_height_cm": "int64",
+        "product_width_cm": "int64",
+        "product_category_name_english": "object",
+        "seller_zip_code_prefix": "int64",
+        "seller_city": "object",
+        "seller_state": "object",
+        "customer_unique_id": "object",
+        "customer_zip_code_prefix": "int64",
+        "customer_city": "object",
+        "customer_state": "object",
+        "payment_value_total": "float64",
+        "payment_installments_max": "int64",
+        "payment_type_primary": "object",
+        "n_payment_rows": "int64",
+        "review_score_avg": "float64",
+        "delivery_days": "float64",
+        "item_total_value": "float64"
+      },
+      "null_counts": {
+        "order_id": 0,
+        "order_item_id": 0,
+        "product_id": 0,
+        "seller_id": 0,
+        "shipping_limit_date": 0,
+        "price": 0,
+        "freight_value": 0,
+        "customer_id": 0,
+        "order_status": 0,
+        "order_purchase_timestamp": 0,
+        "order_approved_at": 773,
+        "order_delivered_carrier_date": 773,
+        "order_delivered_customer_date": 773,
+        "order_estimated_delivery_date": 0,
+        "product_category_name": 107,
+        "product_name_lenght": 0,
+        "product_description_lenght": 0,
+        "product_photos_qty": 0,
+        "product_weight_g": 0,
+        "product_length_cm": 0,
+        "product_height_cm": 0,
+        "product_width_cm": 0,
+        "product_category_name_english": 107,
+        "seller_zip_code_prefix": 0,
+        "seller_city": 0,
+        "seller_state": 0,
+        "customer_unique_id": 0,
+        "customer_zip_code_prefix": 0,
+        "customer_city": 0,
+        "customer_state": 0,
+        "payment_value_total": 0,
+        "payment_installments_max": 0,
+        "payment_type_primary": 0,
+        "n_payment_rows": 0,
+        "review_score_avg": 300,
+        "delivery_days": 773,
+        "item_total_value": 0
+      },
+      "null_pct": {
+        "order_id": 0.0,
+        "order_item_id": 0.0,
+        "product_id": 0.0,
+        "seller_id": 0.0,
+        "shipping_limit_date": 0.0,
+        "price": 0.0,
+        "freight_value": 0.0,
+        "customer_id": 0.0,
+        "order_status": 0.0,
+        "order_purchase_timestamp": 0.0,
+        "order_approved_at": 38.14,
+        "order_delivered_carrier_date": 38.14,
+        "order_delivered_customer_date": 38.14,
+        "order_estimated_delivery_date": 0.0,
+        "product_category_name": 5.28,
+        "product_name_lenght": 0.0,
+        "product_description_lenght": 0.0,
+        "product_photos_qty": 0.0,
+        "product_weight_g": 0.0,
+        "product_length_cm": 0.0,
+        "product_height_cm": 0.0,
+        "product_width_cm": 0.0,
+        "product_category_name_english": 5.28,
+        "seller_zip_code_prefix": 0.0,
+        "seller_city": 0.0,
+        "seller_state": 0.0,
+        "customer_unique_id": 0.0,
+        "customer_zip_code_prefix": 0.0,
+        "customer_city": 0.0,
+        "customer_state": 0.0,
+        "payment_value_total": 0.0,
+        "payment_installments_max": 0.0,
+        "payment_type_primary": 0.0,
+        "n_payment_rows": 0.0,
+        "review_score_avg": 14.8,
+        "delivery_days": 38.14,
+        "item_total_value": 0.0
+      },
+      "memory_mb": 1.926,
+      "date_range": {
+        "min": "2017-01-01 01:43:17",
+        "max": "2018-07-31 18:46:52"
+      },
+      "file_path": "unified.parquet"
+    }
+  },
+  "upstream_manifest": null,
+  "logs": [
+    {
+      "timestamp": "2026-09-19T10:26:09.074714",
+      "level": "INFO",
+      "message": "Starting data_ingestion run"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.134116",
+      "level": "INFO",
+      "message": "Loaded 'orders': 1000 rows x 8 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.167097",
+      "level": "INFO",
+      "message": "Loaded 'customers': 400 rows x 5 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.208865",
+      "level": "INFO",
+      "message": "'order_items': dropped 5 exact duplicate rows on load"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.214110",
+      "level": "INFO",
+      "message": "Loaded 'order_items': 2027 rows x 7 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.244024",
+      "level": "INFO",
+      "message": "Loaded 'payments': 1257 rows x 5 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.300463",
+      "level": "INFO",
+      "message": "Loaded 'reviews': 850 rows x 7 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.333827",
+      "level": "INFO",
+      "message": "Loaded 'products': 150 rows x 9 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.365974",
+      "level": "INFO",
+      "message": "Loaded 'sellers': 60 rows x 4 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.401719",
+      "level": "INFO",
+      "message": "Loaded 'geolocation': 300 rows x 5 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.430558",
+      "level": "INFO",
+      "message": "Loaded 'category_translation': 8 rows x 2 cols"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.443413",
+      "level": "INFO",
+      "message": "unified = order_items JOIN orders -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.450298",
+      "level": "INFO",
+      "message": "unified JOIN products -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.458671",
+      "level": "INFO",
+      "message": "unified JOIN category_translation"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.464294",
+      "level": "INFO",
+      "message": "unified JOIN sellers -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.470286",
+      "level": "INFO",
+      "message": "unified JOIN customers -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.694985",
+      "level": "INFO",
+      "message": "unified JOIN payments (order-grain agg) -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.710305",
+      "level": "INFO",
+      "message": "unified JOIN reviews (order-grain agg) -> 2027 rows"
+    },
+    {
+      "timestamp": "2026-09-19T10:26:09.900642",
+      "level": "INFO",
+      "message": "Finished data_ingestion run in 0.83s"
+    }
+  ],
+  "extra_metadata": {
+    "n_source_tables_declared": 9,
+    "n_source_tables_loaded": 9,
+    "unified_grain": "order_item",
+    "elapsed_seconds": 0.83
+  }
+}
